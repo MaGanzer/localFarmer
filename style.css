@@ -1,0 +1,62 @@
+
+.rechts{
+    float: left;
+    margin: 0.5em;
+}
+
+li{
+    list-style: none;
+}
+
+ul{
+    padding-left: 0em;
+}
+
+header{
+    display: flex;
+    background: aqua;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+
+#suchleiste{
+    position: absolute;
+    right: 1em;
+}
+
+img{
+    width: 10em;
+    height: auto;
+}
+
+#karte{
+    background-color: lightgray;
+    height: 10em;
+}
+
+.profil{
+    width: 10em;
+    background: grey;
+    margin: 1em;
+    padding: 0.5em;
+
+}
+
+.suche{
+    size: 100em;
+}
+
+footer{
+    position: absolute;
+    bottom: 0em;
+    right:0em;
+    left:0em;
+    background-color: lightgray;
+    padding: 0.1em;
+
+}
+
