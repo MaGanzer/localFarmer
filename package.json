@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/MaGanzer/localFarmer/issues"
   },
-  "homepage": "https://github.com/MaGanzer/localFarmer#readme"
+  "homepage": "https://github.com/MaGanzer/localFarmer#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
 }
