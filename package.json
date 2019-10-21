@@ -1,0 +1,19 @@
+{
+  "name": "localfarmer",
+  "version": "0.0.1",
+  "description": "Im Rahmen eines Gruppenprojekts entwickelte Single Page App.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaGanzer/localFarmer.git"
+  },
+  "author": "Malte Ganzer, Jannik Leuthold, Daniel Lupu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaGanzer/localFarmer/issues"
+  },
+  "homepage": "https://github.com/MaGanzer/localFarmer#readme"
+}
