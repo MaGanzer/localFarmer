@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <title>local Farmer</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="script" href="script.js"/>
+
+    <script src="script.js"></script>
+    <script  src="http://www.openlayers.org/api/OpenLayers.js"></script>
+    <script  src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
+
 </head>
-<body>
+<body onload="initMap()">
     <header>
         <div>&nbsp;</div>
         <h1>Local Farmer</h1>
@@ -19,16 +23,19 @@
 
 <!--        Section für die Startseite mit Karte und Übersicht der angezeigten Farmer-->
         <section id = "startseite">
+            <div id="suchleiste">
+                <ul>
+                    <li class="rechts"><input class="suche" name="search_product" placeholder="Produkt"></li>
+                    <li class="rechts"><input name="search_place" placeholder="Ort"></li>
+                    <li class="rechts"><button id="search">Suchen</button></li>
+                </ul>
+            </div>
             <div id="karte">
-                <div id="suchleiste">
-                    <ul>
-                        <li class="rechts"><input class="suche" name="search_product" placeholder="Produkt"></li>
-                        <li class="rechts"><input name="search_place" placeholder="Ort"></li>
-                        <li class="rechts"><button id="search">Suchen</button></li>
-                    </ul>
-                </div>
-                    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApltjD0i2h_SZPZtxcvxMYpEfcJmLUYXI&callback=initMap" type="text/javascript"></script>
-<!--                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d83735.1809511573!2d8.339494168078295!3d49.01582790542186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sde!2sde!4v1571643292681!5m2!1sde!2sde"></iframe>-->
+            </div>
+            <div id="lizenz">
+                © <a href="http://www.openstreetmap.org">OpenStreetMap</a>
+                und <a href="http://www.openstreetmap.org/copyright">Mitwirkende</a>,
+                <a href="http://creativecommons.org/licenses/by-sa/2.0/deed.de">CC-BY-SA</a>
             </div>
             <div id="liste">
                 <div class="profil">
@@ -46,7 +53,7 @@
         </section>
     </main>
     <footer>
-        © by Malte Ganzer, Jannik Leuthold & Daniel Lupu
+        footer
     </footer>
 </body>
 </html>
