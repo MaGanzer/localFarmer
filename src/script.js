@@ -122,8 +122,8 @@ function searchPlace(place){
 
         let data = JSON.parse(this.response);
         console.log(data);
-        lat = parseInt(data[0].lat);
-        lon = parseInt(data[0].lon);
+        lat = parseFloat(data[0].lat);
+        lon = parseFloat(data[0].lon);
 
         jumpTo(lon, lat, 12);
         addMarker(layer_markers, lon, lat,);
