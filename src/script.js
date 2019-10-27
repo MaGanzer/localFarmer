@@ -117,11 +117,13 @@ function searchPlace(place){
     request.open('GET', url, true);
 
     request.onload = function() {
+        let lat = null;
+        let lon = null;
 
         let data = JSON.parse(this.response);
         console.log(data);
-        let lat = parseInt(data[0].lat);
-        let lon = parseInt(data[0].lon);
+        lat = parseInt(data[0].lat);
+        lon = parseInt(data[0].lon);
 
         jumpTo(lon, lat, 12);
         addMarker(layer_markers, lon, lat,);
