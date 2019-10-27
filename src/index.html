@@ -10,7 +10,7 @@
     <script  src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
 
 </head>
-<body onload="initMap()">
+<body onload="initMap(8.4039444444444, 49.009194444444)">
     <header>
         <div>&nbsp;</div>
         <h1>Local Farmer</h1>
@@ -24,9 +24,9 @@
 <!--        Section für die Startseite mit Karte und Übersicht der angezeigten Farmer-->
         <section id = "startseite">
             <div id="suchleiste">
-                <input class="suche" name="search_product" placeholder="Produkt">
-                <input class = "suche" name="search_place" placeholder="Ort">
-                <button class = "suche" id="search">Suchen</button>
+                <input class="suche" id="search_product" placeholder="Produkt">
+                <input class="suche" id="search_place" placeholder="Ort">
+                <button class="suche" id="search">Suchen</button>
             </div>
             <div id="karte">
             </div>

@@ -1,22 +1,20 @@
 
+document.addEventListener("DOMContentLoaded", function() {
+    // this function runs when the DOM is ready, i.e. when the document has been parsed
+    //EventListener Suchen Button
+    document.querySelector('#search').addEventListener('click', search);
+
+});
 
 
-
-/*
-function initMap() {
-    console.log("HalloWelt")
-    let options = {
-        center: {lat: 49.0,lng: 8.4},
-        zoom: 4,
-    };
-    map = new google.maps.Map(document.getElementById("karte"), options);
-}*/
 let map;
 let layer_mapnik;
 let layer_markers;
 let layer_tah;
 
-function initMap(){
+
+
+function initMap(lon, lat){
     console.log("initMap()")
 
    //let popuptext="<font color=\"black\"><b>Thomas Heiles<br>Stra&szlig;e 123<br>54290 Trier</b><p><img src=\"test.jpg\" width=\"180\" height=\"113\"></p></font>";
@@ -24,8 +22,8 @@ function initMap(){
     OpenLayers.Lang.setCode('de');
 
     // Position und Zoomstufe der Karte
-    let lon = 8.4039444444444;
-    let lat = 49.009194444444;
+  /*  let lon = 8.4039444444444;
+    let lat = 49.009194444444;*/
     let zoom = 12;
 
     map = new OpenLayers.Map('karte', {
@@ -51,7 +49,7 @@ function initMap(){
     jumpTo(lon, lat, zoom);
 
     // Position des Markers
-    addMarker(layer_markers, 8.4039444444444, 49.009194444444);
+    addMarker(layer_markers, lon, lat);
 }
 
 function jumpTo(lon, lat, zoom) {
@@ -97,4 +95,37 @@ function addMarker(layer, lon, lat, popupContentHTML) {
 
     layer.addMarker(marker);
     map.addPopup(feature.createPopup(feature.closeBox));
+}
+
+function search(){
+    let product = document.querySelector('#search_product').value;
+    console.log(product);
+
+    let place = document.querySelector("#search_place").value;
+    console.log(place);
+
+    if (place != ""){
+        searchPlace(place);
+    }
+
+}
+
+function searchPlace(place){
+    let request = new XMLHttpRequest();
+    let url = 'https://nominatim.openstreetmap.org/search?q='+ place + '&format=json';
+    console.log(url);
+    request.open('GET', url, true);
+
+    request.onload = function() {
+
+        let data = JSON.parse(this.response);
+        console.log(data);
+        let lat = parseInt(data[0].lat);
+        let lon = parseInt(data[0].lon);
+
+        jumpTo(lon, lat, 12);
+        addMarker(layer_markers, lon, lat,);
+    }
+
+    request.send();
 }
