@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function() {
 let map;
 let layer_mapnik;
 let layer_markers;
-let layer_tah;
+let marker;
+
 
 
 
@@ -78,7 +79,7 @@ function addMarker(layer, lon, lat, popupContentHTML) {
     feature.data.popupContentHTML = popupContentHTML;
     feature.data.overflow = "hidden";
 
-    let marker = new OpenLayers.Marker(ll);
+    marker = new OpenLayers.Marker(ll);
     marker.feature = feature;
 
     let markerClick = function(evt) {
@@ -95,6 +96,28 @@ function addMarker(layer, lon, lat, popupContentHTML) {
 
     layer.addMarker(marker);
     map.addPopup(feature.createPopup(feature.closeBox));
+}
+
+function getLocation(){
+
+    if (navigator.geolocation) {
+        // getCurrentPosition ruft die Funktion success auf und übermittelt die Position Werte
+        // error wird ausgeführt wenn es einen Fehler beim ermitteln der Position gibt
+        navigator.geolocation.getCurrentPosition(successGeo, errorGeo);
+    } else {
+        alert("GeoLocation API ist NICHT verfügbar!");
+    }
+}
+
+function successGeo(position) {
+    lat = position.coords.latitude;
+    long = position.coords.longitude;
+    initMap(long, lat);
+}
+
+function errorGeo(msg) {
+    console.log(typeof msg == 'string' ? msg : "error");
+    initMap(8.4039444444444, 49.009194444444);
 }
 
 function search(){
@@ -127,6 +150,7 @@ function searchPlace(place){
 
         jumpTo(lon, lat, 12);
         addMarker(layer_markers, lon, lat,);
+
     }
 
     request.send();
