@@ -140,12 +140,14 @@ function getLocation(){
 }
 
 function successGeo(position) {
-    lat = position.coords.latitude;
-    long = position.coords.longitude;
-    initMap(long, lat);
+    console.log("Standortabfrage erlaubt");
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
+    initMap(lon, lat);
 }
 
 function errorGeo(msg) {
+    console.log("Standortabfrage abgelehnt");
     console.log(typeof msg == 'string' ? msg : "error");
     initMap(8.4039444444444, 49.009194444444);
 }
