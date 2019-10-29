@@ -2,17 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>local Farmer</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Local Farmer</title>
 
-    <script src="script.js"></script>
-    <script  src="http://www.openlayers.org/api/OpenLayers.js"></script>
-    <script  src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
-
-    <script type="text/javascript"></script>
+    <script src="index.js"></script>
+    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+    <script src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
 
 </head>
-<body onLoad="getLocation()">
+<body>
+<!-- Section für die appweiten Elemente der Seite -->
+  <section id="app">
     <header>
         <div>&nbsp;</div>
         <h1>Local Farmer</h1>
@@ -22,38 +21,42 @@
         </ul>
     </header>
     <main>
-
-<!--        Section für die Startseite mit Karte und Übersicht der angezeigten Farmer-->
-        <section id = "startseite">
-            <div id="suchleiste">
-                <input class="suche" id="search_product" placeholder="Produkt">
-                <input class="suche" id="search_place" placeholder="Ort">
-                <button class="suche" id="search">Suchen</button>
-            </div>
-            <div id="karte">
-            </div>
-            <div id="lizenz">
-                © <a href="http://www.openstreetmap.org">OpenStreetMap</a>
-                und <a href="http://www.openstreetmap.org/copyright">Mitwirkende</a>,
-                <a href="http://creativecommons.org/licenses/by-sa/2.0/deed.de">CC-BY-SA</a>
-            </div>
-            <div id="liste">
-                <div class="profil">
-                    <img src="image_01.jfif">
-                    <h2>Gabriela Schreieck</h2>
-                    <h3>Mühlburg</h3>
-                    <output>distance</output>
-                </div>
-            </div>
-        </section>
-
-<!--        Section für Daniel-->
-        <section id=" details">
-
-        </section>
+    <!-- die anderen Sections werden hier zur Laufzeit reingeladen -->
     </main>
     <footer>
-        footer
+      footer
     </footer>
+  </section>
+
+<!-- Section für die Startseite mit Karte und Übersicht der angezeigten Farmer-->
+  <section id="start-page" class="hidden">
+    <main>
+      <div id="suchleiste">
+          <input class="suche" id="search_product" placeholder="Produkt">
+          <input class="suche" id="search_place" placeholder="Ort">
+          <button class="suche" id="search">Suchen</button>
+      </div>
+      <div id="karte">
+      </div>
+      <div id="lizenz">
+          © <a href="http://www.openstreetmap.org">OpenStreetMap</a>
+          und <a href="http://www.openstreetmap.org/copyright">Mitwirkende</a>,
+          <a href="http://creativecommons.org/licenses/by-sa/2.0/deed.de">CC-BY-SA</a>
+      </div>
+      <div id="liste">
+          <div class="profil">
+              <img src="image_01.jfif">
+              <h2>Gabriela Schreieck</h2>
+              <h3>Mühlburg</h3>
+              <output>distance</output>
+          </div>
+      </div>
+    </main>
+  </section>
+
+<!--        Section für Daniel-->
+  <section id="details" class="hidden">
+
+  </section>
 </body>
 </html>

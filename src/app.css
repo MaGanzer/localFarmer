@@ -1,0 +1,69 @@
+/*
+ * Dieses Stylesheet darf nur Selektoren beinhalten, die mit #app beginnen.
+ * Denn wir wollen nicht, dass hier Eigenschaften aus anderen Bereichen der
+ * Anwendung überschrieben werden.
+ */
+#app {
+  background-color: var(--header-normal-background-color);
+  /*flex: 1;*/
+}
+
+/*
+ * Kopfbereich über dem Inhalt
+ */
+#app header {
+    background-color: var(--header-normal-background-color);
+    color: var(--header-normal-font-color);    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+#app header a,
+#app header a:visited {
+    color: var(--header-normal-font-color);
+    text-decoration: none;
+}
+
+#app header a:hover {
+    color: var(--header-active-font-color);
+    text-decoration: underline;
+}
+
+#app header input {
+    background: none;
+    color: var(--header-normal-font-color);
+    border: 0;
+}
+
+#app header .rechts{
+    float: left;
+    margin: 0.5em;
+}
+
+#app header li{
+    list-style: none;
+}
+
+#app header ul{
+    padding-left: 0em;
+}
+
+/*
+ * Hauptinhalt
+ */
+#app main {
+  
+}
+
+/*
+ * Footer
+ */
+#app footer {
+    bottom: 0;
+    width: 100%;
+    background-color: lightgray;
+    height: 2em;
+}

@@ -4,7 +4,7 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 
-const firebaseConfig = {
+const _firebaseConfig = {
   apiKey: "AIzaSyAWrwXNjRNdVUGzEwu4Xww5QNWqUEuIJhA",
   authDomain: "localfarmer-472bb.firebaseapp.com",
   databaseURL: "https://localfarmer-472bb.firebaseio.com",

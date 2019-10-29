@@ -1,17 +1,47 @@
+"use strict";
 
-document.addEventListener("DOMContentLoaded", function() {
-    // this function runs when the DOM is ready, i.e. when the document has been parsed
-    //EventListener Suchen Button
-    document.querySelector('#search').addEventListener('click', search);
+import stylesheet from "./start-page.css";
 
-});
-
+let _app = "";
+let _db = "";
 
 let map;
 let layer_mapnik;
 let layer_markers;
 let marker;
 
+class StartPage {
+  constructor(app) {
+    this._app = app;
+    _app = this._app;
+    _db = app._db;
+  }
+
+  onShow() {
+    // Anzuzeigende HTML-Elemente ermitteln
+    let section = document.querySelector("#start-page").cloneNode(true);
+
+    return {
+        className: "start-page",
+        topbar: section.querySelectorAll("header > *"),
+        main: section.querySelectorAll("main > *"),
+    };
+  }
+
+  onLoad() {
+    getLocation();
+    document.querySelector('#search').addEventListener('click', search);
+    console.log('Page loaded');
+  }
+
+  onLeave(goon) {
+    return true;
+  }
+
+  get title() {
+    return "Lokal ist locool!";
+  }
+}
 
 
 
@@ -155,3 +185,5 @@ function searchPlace(place){
 
     request.send();
 }
+
+export default StartPage;
