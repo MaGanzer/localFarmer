@@ -5,10 +5,10 @@ import stylesheet from "./start-page.css";
 let _app = "";
 let _db = "";
 
-let map;
-let layer_mapnik;
-let layer_markers;
-let marker;
+let _map;
+let _layer_mapnik;
+let _layer_markers;
+let _marker;
 
 class StartPage {
   constructor(app) {
@@ -57,7 +57,7 @@ function initMap(lon, lat){
     let lat = 49.009194444444;*/
     let zoom = 12;
 
-    map = new OpenLayers.Map('karte', {
+    _map = new OpenLayers.Map('karte', {
         projection: new OpenLayers.Projection("EPSG:900913"),
         displayProjection: new OpenLayers.Projection("EPSG:4326"),
         controls: [
@@ -72,21 +72,21 @@ function initMap(lon, lat){
         units: 'meters'
     });
 
-    layer_mapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
-    layer_markers = new OpenLayers.Layer.Markers("Address", { projection: new OpenLayers.Projection("EPSG:4326"),
+    _layer_mapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
+    _layer_markers = new OpenLayers.Layer.Markers("Address", { projection: new OpenLayers.Projection("EPSG:4326"),
         visibility: true, displayInLayerSwitcher: false });
 
-    map.addLayers([layer_mapnik, layer_markers]);
+    _map.addLayers([_layer_mapnik, _layer_markers]);
     jumpTo(lon, lat, zoom);
 
     // Position des Markers
-    addMarker(layer_markers, lon, lat);
+    addMarker(_layer_markers, lon, lat);
 }
 
 function jumpTo(lon, lat, zoom) {
     let x = Lon2Merc(lon);
     let y = Lat2Merc(lat);
-    map.setCenter(new OpenLayers.LonLat(x, y), zoom);
+    _map.setCenter(new OpenLayers.LonLat(x, y), zoom);
     return false;
 }
 
@@ -109,23 +109,23 @@ function addMarker(layer, lon, lat, popupContentHTML) {
     feature.data.popupContentHTML = popupContentHTML;
     feature.data.overflow = "hidden";
 
-    marker = new OpenLayers.Marker(ll);
-    marker.feature = feature;
+    _marker = new OpenLayers.Marker(ll);
+    _marker.feature = feature;
 
     let markerClick = function(evt) {
         if (this.popup == null) {
             this.popup = this.createPopup(this.closeBox);
-            map.addPopup(this.popup);
+            _map.addPopup(this.popup);
             this.popup.show();
         } else {
             this.popup.toggle();
         }
         OpenLayers.Event.stop(evt);
     };
-    marker.events.register("mousedown", feature, markerClick);
+    _marker.events.register("mousedown", feature, markerClick);
 
-    layer.addMarker(marker);
-    map.addPopup(feature.createPopup(feature.closeBox));
+    layer.addMarker(_marker);
+    _map.addPopup(feature.createPopup(feature.closeBox));
 }
 
 function getLocation(){
@@ -181,7 +181,7 @@ function searchPlace(place){
         lon = parseFloat(data[0].lon);
 
         jumpTo(lon, lat, 12);
-        addMarker(layer_markers, lon, lat,);
+        addMarker(_layer_markers, lon, lat,);
 
     }
 

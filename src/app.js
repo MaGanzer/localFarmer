@@ -20,7 +20,7 @@ class App {
     this._title = "Local Farmer";
     this._currentView = null;
 
-    //Single Page Router initialiesieren
+    //Single Page Router initialisieren
     this._router = new Navigo();
     this._currentUrl = "";
     this._navAborted = false;
