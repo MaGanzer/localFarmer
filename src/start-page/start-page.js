@@ -9,6 +9,8 @@ let _map;
 let _layer_mapnik;
 let _layer_markers;
 let _marker;
+let _lat;
+let _lon;
 
 class StartPage {
   constructor(app) {
@@ -44,17 +46,13 @@ class StartPage {
 }
 
 
-
-function initMap(lon, lat){
+function initMap(){
     console.log("initMap()")
 
-   //let popuptext="<font color=\"black\"><b>Thomas Heiles<br>Stra&szlig;e 123<br>54290 Trier</b><p><img src=\"test.jpg\" width=\"180\" height=\"113\"></p></font>";
+   // let popuptext="<font color=\"black\"><b>Thomas Heiles<br>Stra&szlig;e 123<br>54290 Trier</b><p><img src=\"test.jpg\" width=\"180\" height=\"113\"></p></font>";
 
     OpenLayers.Lang.setCode('de');
 
-    // Position und Zoomstufe der Karte
-  /*  let lon = 8.4039444444444;
-    let lat = 49.009194444444;*/
     let zoom = 12;
 
     _map = new OpenLayers.Map('karte', {
@@ -77,26 +75,23 @@ function initMap(lon, lat){
         visibility: true, displayInLayerSwitcher: false });
 
     _map.addLayers([_layer_mapnik, _layer_markers]);
-    jumpTo(lon, lat, zoom);
-
-    // Position des Markers
-    addMarker(_layer_markers, lon, lat);
+    jumpTo(zoom);
 }
 
-function jumpTo(lon, lat, zoom) {
-    let x = Lon2Merc(lon);
-    let y = Lat2Merc(lat);
+function jumpTo(zoom) {
+    let x = Lon2Merc();
+    let y = Lat2Merc();
     _map.setCenter(new OpenLayers.LonLat(x, y), zoom);
     return false;
 }
 
-function Lon2Merc(lon) {
-    return 20037508.34 * lon / 180;
+function Lon2Merc() {
+    return 20037508.34 * _lon / 180;
 }
 
-function Lat2Merc(lat) {
+function Lat2Merc() {
     let PI = 3.14159265358979323846;
-    lat = Math.log(Math.tan( (90 + lat) * PI / 360)) / (PI / 180);
+    let lat = Math.log(Math.tan( (90 + _lat) * PI / 360)) / (PI / 180);
     return 20037508.34 * lat / 180;
 }
 
@@ -131,8 +126,6 @@ function addMarker(layer, lon, lat, popupContentHTML) {
 function getLocation(){
 
     if (navigator.geolocation) {
-        // getCurrentPosition ruft die Funktion success auf und übermittelt die Position Werte
-        // error wird ausgeführt wenn es einen Fehler beim ermitteln der Position gibt
         navigator.geolocation.getCurrentPosition(successGeo, errorGeo);
     } else {
         alert("GeoLocation API ist NICHT verfügbar!");
@@ -141,15 +134,18 @@ function getLocation(){
 
 function successGeo(position) {
     console.log("Standortabfrage erlaubt");
-    let lat = position.coords.latitude;
-    let lon = position.coords.longitude;
-    initMap(lon, lat);
+    _lat = position.coords.latitude;
+    _lon = position.coords.longitude;
+    initMap();
 }
 
 function errorGeo(msg) {
     console.log("Standortabfrage abgelehnt");
     console.log(typeof msg == 'string' ? msg : "error");
-    initMap(8.4039444444444, 49.009194444444);
+    //Karlsruhe
+    _lat = 49.009194444444;
+    _lon = 8.4039444444444;
+    initMap();
 }
 
 function search(){
@@ -159,10 +155,15 @@ function search(){
     let place = document.querySelector("#search_place").value;
     console.log(place);
 
-    if (place != ""){
+    if (place != "" && product != ""){
         searchPlace(place);
+    }else if(place != ""){
+        searchPlace(place);
+    } else if(product != ""){
+        searchProduct(product);
+    }else{
+        noInput();
     }
-
 }
 
 function searchPlace(place){
@@ -172,20 +173,24 @@ function searchPlace(place){
     request.open('GET', url, true);
 
     request.onload = function() {
-        let lat = null;
-        let lon = null;
 
         let data = JSON.parse(this.response);
         console.log(data);
-        lat = parseFloat(data[0].lat);
-        lon = parseFloat(data[0].lon);
+        _lat = parseFloat(data[0].lat);
+        _lon = parseFloat(data[0].lon);
 
-        jumpTo(lon, lat, 12);
-        addMarker(_layer_markers, lon, lat,);
-
+        jumpTo(12);
     }
 
     request.send();
+}
+
+function searchProduct(product){
+
+}
+
+function noInput(){
+
 }
 
 export default StartPage;
