@@ -49,7 +49,7 @@ class StartPage {
 function initMap(){
     console.log("initMap()")
 
-   // let popuptext="<font color=\"black\"><b>Thomas Heiles<br>Stra&szlig;e 123<br>54290 Trier</b><p><img src=\"test.jpg\" width=\"180\" height=\"113\"></p></font>";
+    //let popuptext="<font color=\"black\"><b>Thomas Heiles<br>Stra&szlig;e 123<br>54290 Trier</b><p><img src=\"test.jpg\" width=\"180\" height=\"113\"></p></font>";
 
     OpenLayers.Lang.setCode('de');
 
@@ -190,7 +190,8 @@ function searchProduct(product){
 }
 
 function noInput(){
-
+    document.getElementById("search_product").style.borderColor = "red";
+    document.getElementById("search_place").style.borderColor = "red";
 }
 
 export default StartPage;
