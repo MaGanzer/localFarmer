@@ -1,6 +1,6 @@
 "use strict";
 
-import stylesheet from "./start-page.css";
+import stylesheet from "./angebot-page.css";
 
 let _app = "";
 let _db = "";
@@ -12,7 +12,7 @@ let _marker;
 let _lat;
 let _lon;
 
-class StartPage {
+class AngebotPage {
   constructor(app) {
     this._app = app;
     _app = this._app;
@@ -21,25 +21,21 @@ class StartPage {
 
   onShow() {
     // Anzuzeigende HTML-Elemente ermitteln
-    let section = document.querySelector("#start-page").cloneNode(true);
+    let section = document.querySelector("#angebot-page").cloneNode(true);
 
     return {
-        className: "start-page",
+        className: "angebot-page",
         topbar: section.querySelectorAll("header > *"),
         main: section.querySelectorAll("main > *"),
     };
   }
 
   onLoad() {
-    getLocation();
-    document.querySelector('#search').addEventListener('click', search);
-    document.querySelector("#ZuAngebot").addEventListener('click', function() {
-      _app._router.navigate("/angebot");
-    });
-    document.querySelector('.profil').addEventListener('click', function() {
-      _app._router.navigate("/profil");
-    });
+    document.querySelector('#BackToStart').addEventListener('click', function() {
+     _app._router.navigate("/");
+   });
     console.log('Page loaded');
+
   }
 
   onLeave(goon) {
@@ -47,9 +43,10 @@ class StartPage {
   }
 
   get title() {
-    return "Lokal ist locool!";
+    return "Profil";
   }
 }
+
 
 function initMap(){
     console.log("initMap()")
@@ -199,4 +196,4 @@ function noInput(){
     document.getElementById("search_place").style.borderColor = "red";
 }
 
-export default StartPage;
+export default AngebotPage;

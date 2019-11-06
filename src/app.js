@@ -10,6 +10,8 @@ import DB from "./database.js";
 import ReceipePage from "./receipe-page/receipe-page.js";
 import NewReceipePage from "./new-receipe/new-receipe.js";*/
 import StartPage from "./start-page/start-page.js";
+import ProfilPage from "./profil-page/profil-page.js";
+import AngebotPage from "./angebot-page/angebot-page.js";
 
 
 // Initialize Firebase
@@ -29,6 +31,8 @@ class App {
     this._router.on({
       "*":                    () => this.showStartPage(),
       "/":                    () => this.showStartPage(),
+      "/profil":              () => this.showProfilPage(),
+      "/angebot":             () => this.showAngebotPage(),
       /*"/my-receipes":         () => this.showMyReceipes(),
       "/new":                 () => this.showNewReceipePage(),
       "/show":   (params, query) => this.showReceipePage(query),
@@ -60,6 +64,15 @@ class App {
     this._switchVisibleView(view);
   }
 
+  showProfilPage(){
+    let view = new ProfilPage(this);
+    this._switchVisibleView(view);
+  }
+
+  showAngebotPage(){
+    let view = new AngebotPage(this);
+    this._switchVisibleView(view);
+  }
   /*showMyReceipes() {
     let view = new MyReceipes(this);
     this._switchVisibleView(view);
