@@ -155,6 +155,9 @@ function search(){
     let product = document.querySelector('#search_product').value;
     console.log(product);
 
+    document.getElementById("search_product").style.borderColor = "white";
+    document.getElementById("search_place").style.borderColor = "white";
+
     let place = document.querySelector("#search_place").value;
     console.log(place);
 
