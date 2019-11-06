@@ -153,16 +153,17 @@ function errorGeo(msg) {
 
 function search(){
     let product = document.querySelector('#search_product').value;
-    console.log(product);
+    let place = document.querySelector("#search_place").value;
 
     document.getElementById("search_product").style.borderColor = "white";
     document.getElementById("search_place").style.borderColor = "white";
 
-    let place = document.querySelector("#search_place").value;
+    console.log(product);
     console.log(place);
 
     if (place != "" && product != ""){
         searchPlace(place);
+        searchProduct(product);
     }else if(place != ""){
         searchPlace(place);
     } else if(product != ""){
@@ -192,7 +193,13 @@ function searchPlace(place){
 }
 
 function searchProduct(product){
-
+    //db select und anzeigen auf karte
+    let landwirte = null;
+    let i = null;
+    for (i in landwirte){
+        
+    }
+    //anzeigen in Liste (nur elemente auf karte?)
 }
 
 function noInput(){
