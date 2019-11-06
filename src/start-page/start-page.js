@@ -33,8 +33,11 @@ class StartPage {
   onLoad() {
     getLocation();
     document.querySelector('#search').addEventListener('click', search);
+    document.getElementById("search_product").addEventListener("keyup", (e) => enter(e));
+    document.getElementById("search_place").addEventListener("keyup", (e) => enter(e));
     console.log('Page loaded');
   }
+
 
   onLeave(goon) {
     return true;
@@ -192,6 +195,12 @@ function searchProduct(product){
 function noInput(){
     document.getElementById("search_product").style.borderColor = "red";
     document.getElementById("search_place").style.borderColor = "red";
+}
+
+function enter(event){
+    if (event.keyCode === 13) {
+        search()
+    }
 }
 
 export default StartPage;
