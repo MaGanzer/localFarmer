@@ -32,6 +32,7 @@ class StartPage {
 
   onLoad() {
     getLocation();
+
     document.querySelector('#search').addEventListener('click', search);
     document.querySelector("#ZuAngebot").addEventListener('click', function() {
       _app._router.navigate("/angebot");
@@ -39,6 +40,8 @@ class StartPage {
     document.querySelector('.profil').addEventListener('click', function() {
       _app._router.navigate("/profil");
     });
+    document.getElementById("search_product").addEventListener("keyup", (e) => enter(e));
+    document.getElementById("search_place").addEventListener("keyup", (e) => enter(e));
     console.log('Page loaded');
   }
 
