@@ -1,6 +1,6 @@
 "use strict";
 
-import stylesheet from "./start-page.css";
+import stylesheet from "./angebot-page.css";
 
 let _app = "";
 let _db = "";
@@ -12,7 +12,7 @@ let _marker;
 let _lat;
 let _lon;
 
-class StartPage {
+class AngebotPage {
   constructor(app) {
     this._app = app;
     _app = this._app;
@@ -21,39 +21,32 @@ class StartPage {
 
   onShow() {
     // Anzuzeigende HTML-Elemente ermitteln
-    let section = document.querySelector("#start-page").cloneNode(true);
+    let section = document.querySelector("#angebot-page").cloneNode(true);
 
     return {
-        className: "start-page",
+        className: "angebot-page",
         topbar: section.querySelectorAll("header > *"),
         main: section.querySelectorAll("main > *"),
     };
   }
 
   onLoad() {
-    getLocation();
-
-    document.querySelector('#search').addEventListener('click', search);
-    document.querySelector("#ZuAngebot").addEventListener('click', function() {
-      _app._router.navigate("/angebot");
-    });
-    document.querySelector('.profil').addEventListener('click', function() {
-      _app._router.navigate("/profil");
-    });
-    document.getElementById("search_product").addEventListener("keyup", (e) => enter(e));
-    document.getElementById("search_place").addEventListener("keyup", (e) => enter(e));
+    document.querySelector('#BackToStart').addEventListener('click', function() {
+     _app._router.navigate("/");
+   });
     console.log('Page loaded');
-  }
 
+  }
 
   onLeave(goon) {
     return true;
   }
 
   get title() {
-    return "Lokal ist locool!";
+    return "Profil";
   }
 }
+
 
 function initMap(){
     console.log("initMap()")
@@ -159,17 +152,13 @@ function errorGeo(msg) {
 
 function search(){
     let product = document.querySelector('#search_product').value;
-    let place = document.querySelector("#search_place").value;
-
-    document.getElementById("search_product").style.borderColor = "white";
-    document.getElementById("search_place").style.borderColor = "white";
-
     console.log(product);
+
+    let place = document.querySelector("#search_place").value;
     console.log(place);
 
     if (place != "" && product != ""){
         searchPlace(place);
-        searchProduct(product);
     }else if(place != ""){
         searchPlace(place);
     } else if(product != ""){
@@ -199,13 +188,7 @@ function searchPlace(place){
 }
 
 function searchProduct(product){
-    //db select und anzeigen auf karte
-    let landwirte = null;
-    let i = null;
-    for (i in landwirte){
-        
-    }
-    //anzeigen in Liste (nur elemente auf karte?)
+
 }
 
 function noInput(){
@@ -213,10 +196,4 @@ function noInput(){
     document.getElementById("search_place").style.borderColor = "red";
 }
 
-function enter(event){
-    if (event.keyCode === 13) {
-        search()
-    }
-}
-
-export default StartPage;
+export default AngebotPage;

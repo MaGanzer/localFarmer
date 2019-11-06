@@ -18,6 +18,7 @@
         <ul>
             <li class="rechts"><a href="#">Login</a></li>
             <li class="rechts"><a href="#">Logout</a></li>
+            <li class="rechts" id="ZuAngebot">Angebot herstellen</li>
         </ul>
     </header>
     <main>
@@ -43,22 +44,26 @@
           und <a href="http://www.openstreetmap.org/copyright">Mitwirkende</a>,
           <a href="http://creativecommons.org/licenses/by-sa/2.0/deed.de">CC-BY-SA</a>
       </div>
+      <ul>
       <div id="liste">
-          <div class="profil">
+          <div class="profil" >
               <img src="image_01.jfif">
               <h2>Gabriela Schreieck</h2>
               <h3>Mühlburg</h3>
               <output>distance</output>
           </div>
+
+
+        </ul>
+        </a>
       </div>
     </main>
   </section>
 
 <!--        Section der Detailsicht-->
-  <section id="detail-page" class="hidden">
-    <button class="button" id="1">Zurück zur Startseite</button>
+  <section id="profil-page" class="hidden">
+ <main>
     <li data-index="$INDEX$">
-
    <div class="name">
      Name:  $LAST_NAME$, $FIRST_NAME$
    </div>
@@ -96,6 +101,8 @@
      Öffnungszeit:  $OPEN$
    </div>
    <div class="actions">
+   <button id="BackToStart">Zurück zur Startseite</button>
+   <input class="first_name" placeholder="1. Vorname" value="$FIRST_NAME$" />
        <div class="action edit">
            <a>🖊️</a>
        </div>
@@ -104,6 +111,33 @@
        </div>
    </div>
   </li>
+</body>
   </section>
+<section id="angebot-page" class="hidden">
+  <main>
+      <div>
+         <div class="form">
+              <input class="first_name" placeholder="1. Vorname" value="$FIRST_NAME$" />
+              <input class="last_name" placeholder="2. Nachname" value="$LAST_NAME$" />
+              <input class="street" placeholder="3. Straße" value="$STREET$" />
+              <input class="number" placeholder="4. Hausnummer" value="$NUMBER$" />
+              <input class="city" placeholder="5. Wohnort" value="$CITY$" />
+              <input class="zip" placeholder="6. PLZ" value="$ZIP$" />
+              <input class="type" placeholder="7. Obst/Gemüse" value="$TYPE" />
+              <input class="productname" placeholder="8. Produkt" value="$PRODUCTNAME" />
+              <input class="quantity" placeholder="9. Quantität" value="$QUANTITY$" />
+              <input class="price" placeholder="10. Preis" value="$PRICE$" />
+              <input class="open" placeholder="11. Öfnungszeit" value="$OPEN$" />
+              <input class="phone" placeholder="12. Telefonnummer" value="$PHONE$" />
+              <input class="email" placeholder="13. E-Mailadresse" value="$EMAIL$" />
+          </div>
+          <div class="actions">
+              <div class="action save">
+                  <a>Daten speichern</a>
+              </div>
+          </div>
+      </div>
+    </main>
+</section>
 </body>
 </html>
