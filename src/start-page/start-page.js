@@ -45,6 +45,7 @@ class StartPage {
     console.log('Page loaded');
   }
 
+
   onLeave(goon) {
     return true;
   }
@@ -160,6 +161,9 @@ function search(){
     let product = document.querySelector('#search_product').value;
     console.log(product);
 
+    document.getElementById("search_product").style.borderColor = "white";
+    document.getElementById("search_place").style.borderColor = "white";
+
     let place = document.querySelector("#search_place").value;
     console.log(place);
 
@@ -200,6 +204,12 @@ function searchProduct(product){
 function noInput(){
     document.getElementById("search_product").style.borderColor = "red";
     document.getElementById("search_place").style.borderColor = "red";
+}
+
+function enter(event){
+    if (event.keyCode === 13) {
+        search()
+    }
 }
 
 export default StartPage;
