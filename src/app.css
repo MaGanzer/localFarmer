@@ -4,8 +4,9 @@
  * Anwendung überschrieben werden.
  */
 #app {
-  background-color: var(--header-normal-background-color);
-  /*flex: 1;*/
+    background-color: var(--header-normal-background-color); /* blau*/
+    /*flex: 1;*/
+    /* background-image: url("resources/images/background.jpg"); /*Weinberg als Hintergrundbild*/
 }
 
 /*
