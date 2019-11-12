@@ -17,6 +17,40 @@ class AngebotPage {
     this._app = app;
     _app = this._app;
     _db = app._db;
+
+    this._dataset = {
+        first_name: "",
+        last_name: "",
+        street: "",
+        number: "",
+        city: "",
+        zip: "",
+        type: "",
+        productname: "",
+        quantity: "",
+        price: "",
+        open: "",
+        phone: "",
+        email: "",
+    };
+
+    if (this._editIndex > -1) {
+        let dataset = this._app.getDataByIndex(this._editIndex);
+
+        this._dataset.first_name = dataset.first_name;
+        this._dataset.last_name = dataset.last_name;
+        this._dataset.street = dataset.street;
+        this._dataset.street = dataset.number;
+        this._dataset.city = dataset.city;
+        this._dataset.zip = dataset.zip;
+        this._dataset.type = dataset.type;
+        this._dataset.productname = dataset.productname;
+        this._dataset.quantity = dataset.quantity;
+        this._dataset.price = dataset.price;
+        this._dataset.open = dataset.open;
+        this._dataset.phone = dataset.phone;
+        this._dataset.email = dataset.email;
+    }
   }
 
   onShow() {
@@ -34,6 +68,16 @@ class AngebotPage {
     document.querySelector('#BackToStart').addEventListener('click', function() {
      _app._router.navigate("/");
    });
+   var _this=this;
+
+   document.getElementById("SpeicherButton").addEventListener("click", function() {
+
+    _this.popupMethode();
+
+
+   //  _app._router.navigate("/");
+  });
+
     console.log('Page loaded');
 
   }
@@ -44,6 +88,91 @@ class AngebotPage {
 
   get title() {
     return "Profil";
+  }
+
+  popupMethode(){
+    let firstName = document.querySelector("#main-page-edit .first_name").value.trim();
+    let lastName = document.querySelector("#main-page-edit .last_name").value.trim();
+    let street = document.querySelector("#main-page-edit .street").value.trim();
+    let number = document.querySelector("#main-page-edit .number").value.trim();
+    let city = document.querySelector("#main-page-edit .city").value.trim();
+    let zip = document.querySelector("#main-page-edit .zip").value.trim();
+    let type = document.querySelector("#main-page-edit .type").value.trim();
+    let productname = document.querySelector("#main-page-edit .productname").value.trim();
+    let quantity = document.querySelector("#main-page-edit .quantity").value.trim();
+    let price = document.querySelector("#main-page-edit .price").value.trim();
+    let open = document.querySelector("#main-page-edit .open").value.trim();
+    let phone = document.querySelector("#main-page-edit .phone").value.trim();
+    let email = document.querySelector("#main-page-edit .email").value.trim();
+
+    if (firstName === "") {
+        alert("1. Geben Sie erst einen Vornamen ein.");
+        return;
+    }
+
+    if (lastName === "") {
+        alert("2. Geben Sie erst einen Nachnamen ein.");
+        return;
+    }
+    if (street === "") {
+        alert("3. Geben Sie erst eine Straße ein.");
+        return;
+    }
+    if (number === "") {
+        alert("4. Geben Sie erst eine Hausnummer ein.");
+        return;
+    }
+    if (city === "") {
+        alert("5. Geben Sie erst eine Stadt ein.");
+        return;
+    }
+    if (zip === "") {
+        alert("6. Geben Sie erst eine Postleitzahl ein.");
+        return;
+    }
+    if (type === "" ) {
+        alert("7. Dieser Eingabefeld darf nicht leer bleiben.");
+        return;
+    }
+    if (type !== "Obst" && type!=="Gemüse" ) {
+        alert("7. Dieser Eingabefeld darf als Inhalt Obst oder Gemüse beinhalten.2");
+        return;
+    }
+
+    if (productname === "") {
+        alert("8. Geben Sie erst einen Produktnamen ein.");
+        return;
+      }
+    if (quantity === "") {
+          alert("9. Geben Sie eine gültige Quantität ein.");
+          return;
+        }
+    if (open === "") {
+            alert("10. Geben Sie eine gültige Öfnungszeit.");
+            return;
+          }
+    if (phone === "") {
+              alert("11. Geben Sie erst eine gültige Nummer.");
+              return;
+            }
+    if (email === "") {
+                alert("12. Geben Sie eine gültige E-Mail.");
+                return;
+              }
+              this._dataset.first_name = firstName;
+              this._dataset.last_name = lastName;
+              this._dataset.street = street;
+              this._dataset.number = number;
+              this._dataset.city = city;
+              this._dataset.zip = zip;
+              this._dataset.type = type;
+              this._dataset.productname = productname;
+              this._dataset.quantity = quantity;
+              this._dataset.price = price;
+              this._dataset.open = open;
+              this._dataset.phone = phone;
+              this._dataset.email = email;
+
   }
 }
 
