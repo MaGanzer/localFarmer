@@ -107,31 +107,49 @@ class AngebotPage {
         document.getElementById("1").style.borderColor = "red";
         return;
     }
+    else{
+        document.getElementById("1").style.borderColor = "";
+    }
 
     if (lastName === "") {
         alert("2. Geben Sie erst einen Nachnamen ein.");
         document.getElementById("2").style.borderColor = "red";
         return;
     }
+    else{
+        document.getElementById("2").style.borderColor = "";
+    }
     if (street === "") {
         alert("3. Geben Sie erst eine Straße ein.");
         document.getElementById("3").style.borderColor = "red";
         return;
+    }
+    else{
+        document.getElementById("3").style.borderColor = "";
     }
     if (number === "") {
         alert("4. Geben Sie erst eine Hausnummer ein.");
         document.getElementById("4").style.borderColor = "red";
         return;
     }
+    else{
+        document.getElementById("4").style.borderColor = "";
+    }
     if (city === "") {
         alert("5. Geben Sie erst eine Stadt ein.");
         document.getElementById("5").style.borderColor = "red";
         return;
     }
+    else{
+        document.getElementById("5").style.borderColor = "";
+    }
     if (zip === "") {
         alert("6. Geben Sie erst eine Postleitzahl ein.");
         document.getElementById("6").style.borderColor = "red";
         return;
+    }
+    else{
+        document.getElementById("6").style.borderColor = "";
     }
 
     if (productname === "") {
@@ -139,30 +157,48 @@ class AngebotPage {
         document.getElementById("10").style.borderColor = "red";
         return;
       }
+      else{
+          document.getElementById("10").style.borderColor = "";
+      }
     if (quantity === "") {
           alert("11. Geben Sie eine gültige Quantität ein.");
           document.getElementById("11").style.borderColor = "red";
           return;
+        }
+        else{
+            document.getElementById("11").style.borderColor = "";
         }
     if (open === "") {
             alert("7. Geben Sie eine gültige Öfnungszeit.");
             document.getElementById("7").style.borderColor = "red";
             return;
           }
+          else{
+              document.getElementById("7").style.borderColor = "";
+          }
     if (phone === "") {
               alert("8. Geben Sie erst eine gültige Nummer.");
               document.getElementById("8").style.borderColor = "red";
               return;
+            }
+            else{
+                document.getElementById("8").style.borderColor = "";
             }
     if (email === "") {
                 alert("9. Geben Sie eine gültige E-Mail.");
                 document.getElementById("9").style.borderColor = "red";
                 return;
               }
+              else{
+                  document.getElementById("9").style.borderColor = "";
+              }
     if (price === "") {
                 alert("12. Geben Sie eine gültigen Preis.");
                 document.getElementById("12").style.borderColor = "red";
                 return;
+                        }
+                        else{
+                            document.getElementById("12").style.borderColor = "";
                         }
               this._dataset.first_name = firstName;
               this._dataset.last_name = lastName;
