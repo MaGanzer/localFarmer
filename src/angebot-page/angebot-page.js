@@ -25,7 +25,6 @@ class AngebotPage {
         number: "",
         city: "",
         zip: "",
-        type: "",
         productname: "",
         quantity: "",
         price: "",
@@ -43,7 +42,6 @@ class AngebotPage {
         this._dataset.street = dataset.number;
         this._dataset.city = dataset.city;
         this._dataset.zip = dataset.zip;
-        this._dataset.type = dataset.type;
         this._dataset.productname = dataset.productname;
         this._dataset.quantity = dataset.quantity;
         this._dataset.price = dataset.price;
@@ -97,7 +95,6 @@ class AngebotPage {
     let number = document.querySelector("#main-page-edit .number").value.trim();
     let city = document.querySelector("#main-page-edit .city").value.trim();
     let zip = document.querySelector("#main-page-edit .zip").value.trim();
-    let type = document.querySelector("#main-page-edit .type").value.trim();
     let productname = document.querySelector("#main-page-edit .productname").value.trim();
     let quantity = document.querySelector("#main-page-edit .quantity").value.trim();
     let price = document.querySelector("#main-page-edit .price").value.trim();
@@ -107,65 +104,72 @@ class AngebotPage {
 
     if (firstName === "") {
         alert("1. Geben Sie erst einen Vornamen ein.");
+        document.getElementById("1").style.borderColor = "red";
         return;
     }
 
     if (lastName === "") {
         alert("2. Geben Sie erst einen Nachnamen ein.");
+        document.getElementById("2").style.borderColor = "red";
         return;
     }
     if (street === "") {
         alert("3. Geben Sie erst eine Straße ein.");
+        document.getElementById("3").style.borderColor = "red";
         return;
     }
     if (number === "") {
         alert("4. Geben Sie erst eine Hausnummer ein.");
+        document.getElementById("4").style.borderColor = "red";
         return;
     }
     if (city === "") {
         alert("5. Geben Sie erst eine Stadt ein.");
+        document.getElementById("5").style.borderColor = "red";
         return;
     }
     if (zip === "") {
         alert("6. Geben Sie erst eine Postleitzahl ein.");
-        return;
-    }
-    if (type === "" ) {
-        alert("7. Dieser Eingabefeld darf nicht leer bleiben.");
-        return;
-    }
-    if (type !== "Obst" && type!=="Gemüse" ) {
-        alert("7. Dieser Eingabefeld darf als Inhalt Obst oder Gemüse beinhalten.2");
+        document.getElementById("6").style.borderColor = "red";
         return;
     }
 
     if (productname === "") {
-        alert("8. Geben Sie erst einen Produktnamen ein.");
+        alert("10. Geben Sie erst einen Produktnamen ein.");
+        document.getElementById("10").style.borderColor = "red";
         return;
       }
     if (quantity === "") {
-          alert("9. Geben Sie eine gültige Quantität ein.");
+          alert("11. Geben Sie eine gültige Quantität ein.");
+          document.getElementById("11").style.borderColor = "red";
           return;
         }
     if (open === "") {
-            alert("10. Geben Sie eine gültige Öfnungszeit.");
+            alert("7. Geben Sie eine gültige Öfnungszeit.");
+            document.getElementById("7").style.borderColor = "red";
             return;
           }
     if (phone === "") {
-              alert("11. Geben Sie erst eine gültige Nummer.");
+              alert("8. Geben Sie erst eine gültige Nummer.");
+              document.getElementById("8").style.borderColor = "red";
               return;
             }
     if (email === "") {
-                alert("12. Geben Sie eine gültige E-Mail.");
+                alert("9. Geben Sie eine gültige E-Mail.");
+                document.getElementById("9").style.borderColor = "red";
                 return;
               }
+    if (price === "") {
+                alert("12. Geben Sie eine gültigen Preis.");
+                document.getElementById("12").style.borderColor = "red";
+                return;
+                        }
               this._dataset.first_name = firstName;
               this._dataset.last_name = lastName;
               this._dataset.street = street;
               this._dataset.number = number;
               this._dataset.city = city;
               this._dataset.zip = zip;
-              this._dataset.type = type;
               this._dataset.productname = productname;
               this._dataset.quantity = quantity;
               this._dataset.price = price;
