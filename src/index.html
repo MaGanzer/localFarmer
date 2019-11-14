@@ -62,59 +62,59 @@
 
 <!--        Section der Detailsicht-->
   <section id="profil-page" class="hidden">
- <main>
-    <li data-index="$INDEX$">
-   <div class="name">
-     Name:  $LAST_NAME$, $FIRST_NAME$
-   </div>
-   <div class="field phone">
-     Händy:  $PHONE$
-   </div>
-   <div class="field email">
-    Email:  $EMAIL$
-   </div>
-   <div class="field price">
-     Preis:  $PRICE$ €
-   </div>
-   <div class="field street">
-     Straße:  $STREET$
-   </div>
-   <div class="field number">
-     Hausnummer:  $NUMBER$
-   </div>
-   <div class="field zip">
-     ZIP:  $ZIP$
-   </div>
-   <div class="field type">
-     Typ:  $TYPE$
-   </div>
-   <!--
-   <div class="field productname">
-     Productname:  $PRODUCTNAME$
-   </div> -->
-   <div class="field quantity">
-     Quantität:  $QUANTITY$
-   </div>
-   <div class="field price">
-     Preis:  $PRICE$
-   </div>
-   <div class="field open">
-     Öffnungszeit:  $OPEN$
-   </div>
-   <div class="actions">
-   <button id="BackToStart">Zurück zur Startseite</button>
-   <input class="first_name" placeholder="1. Vorname" value="$FIRST_NAME$" />
-       <div class="action edit">
-           <a>🖊️</a>
-       </div>
-       <div class="action delete">
-           <a>🗑️</a>
-       </div>
-   </div>
-  </li>
-</body>
+    <main>
+      <li data-index="$INDEX$">
+        <div class="name">
+          Name:  $LAST_NAME$, $FIRST_NAME$
+        </div>
+        <div class="field phone">
+          Handy:  $PHONE$
+        </div>
+        <div class="field email">
+          Email:  $EMAIL$
+        </div>
+        <div class="field price">
+          Preis:  $PRICE$ €
+        </div>
+        <div class="field street">
+          Straße:  $STREET$
+        </div>
+        <div class="field number">
+          Hausnummer:  $NUMBER$
+        </div>
+        <div class="field zip">
+          ZIP:  $ZIP$
+        </div>
+        <div class="field type">
+          Typ:  $TYPE$
+        </div>
+        <!--
+        <div class="field productname">
+          Productname:  $PRODUCTNAME$
+        </div> -->
+        <div class="field quantity">
+          Quantität:  $QUANTITY$
+        </div>
+        <div class="field price">
+          Preis:  $PRICE$
+        </div>
+        <div class="field open">
+          Öffnungszeit:  $OPEN$
+        </div>
+        <div class="actions">
+          <button id="BackToStart">Zurück zur Startseite</button>
+          <input class="first_name" placeholder="1. Vorname" value="$FIRST_NAME$" />
+          <div class="action edit">
+            <a>🖊️</a>
+          </div>
+          <div class="action delete">
+            <a>🗑️</a>
+         </div>
+        </div>
+      </li>
+    </main>
   </section>
-<section id="angebot-page" class="hidden">
+  <section id="angebot-page" class="hidden">
   <main>
       <div>
          <div class="form" id="main-page-edit">
@@ -159,6 +159,20 @@
           </div>
       </div>
     </main>
-</section>
+  </section>
+  <section id="dbtest-page" class="hidden">
+    <main>
+      <fieldset>
+        <legend>Speichern:</legend>
+        Gib hier was ein: <input type="text" id="DBTest_text" />
+        Drück dann hier drauf: <button type="button" id="DBTest_speichern">Testdaten speichern</button>
+      </fieldset>
+      <fieldset>
+        <legend>Laden:</legend>
+        Gib die ID ein: <input type="text" id="DBTest_id" />
+        Drück dann hier drauf: <button type="button" id="DBTest_laden">Testdaten laden</button> oder <button type="button" id="DBTest_loeschen">Testdaten löschen</button>
+      </fieldset>
+    </main>
+  </section>
 </body>
 </html>
