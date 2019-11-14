@@ -22,10 +22,31 @@ class DB {
     _db = firebase.firestore();
   }
 
-  registerUser(user)
+  /*registerUser(user)
   {
     return _db.collection("users").add(user);
+  }*/
+  
+  addDBTest(testData)
+  {
+    return _db.collection("dbtest").add(testData);
   }
+  
+  getAllDBTests()
+  {
+    return _db.collection("dbtest").get();
+  }
+
+  getDBTest(id)
+  {
+    return _db.collection("dbtest").doc(id).get();
+  }
+  
+  deleteDBTest(id)
+  {
+    return _db.collection("dbtest").doc(id).delete();
+  }
+
 }
 
 export default DB;
