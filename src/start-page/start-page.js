@@ -34,14 +34,11 @@ class StartPage {
     getLocation();
 
     document.querySelector('#search').addEventListener('click', search);
-    document.querySelector("#ZuAngebot").addEventListener('click', function() {
-      _app._router.navigate("/angebot");
-    });
+    document.getElementById("search_product").addEventListener("keyup", (e) => enter(e));
+    document.getElementById("search_place").addEventListener("keyup", (e) => enter(e));
     document.querySelector('.profil').addEventListener('click', function() {
       _app._router.navigate("/profil");
     });
-    document.getElementById("search_product").addEventListener("keyup", (e) => enter(e));
-    document.getElementById("search_place").addEventListener("keyup", (e) => enter(e));
     console.log('Page loaded');
   }
 
@@ -51,7 +48,7 @@ class StartPage {
   }
 
   get title() {
-    return "Lokal ist locool!";
+    return "Kaufe von Landwirten in deiner Region!";
   }
 }
 

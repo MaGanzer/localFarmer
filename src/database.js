@@ -15,11 +15,13 @@ const _firebaseConfig = {
 };
 
 let _db = "";
+let _auth = "";
 
 class DB {
   constructor() {
     firebase.initializeApp(_firebaseConfig);
     _db = firebase.firestore();
+    _auth = firebase.auth();
   }
 
   /*registerUser(user)
