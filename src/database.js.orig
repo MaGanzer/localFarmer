@@ -19,12 +19,18 @@ class DB {
     firebase.initializeApp(_firebaseConfig);
     this._db = firebase.firestore();
     this._auth = firebase.auth();
-    this._db = firebase.firestore();
   }
 
-  // ----- database functions
+<<<<<<< HEAD
+  /*registerUser(user)
+  {
+    return _db.collection("users").add(user);
+  }*/
 
   //dbtest -> testDatenbank, muss vor abgabe gelöscht werden
+=======
+  // ----- database functions
+>>>>>>> 774bbee221cf6633fd749fffba2594cc28916965
   addDBTest(testData)
   {
     return this._db.collection("dbtest").add(testData);
@@ -59,31 +65,26 @@ class DB {
   logoutUser() {
     return this._auth.signOut();
   }
-  
-  authChangeListener(f)
-  {
-    return this._auth.onAuthStateChanged(f);
-  }
 
   //db richtige Datenbank
   addDB(testData)
   {
-    return this._db.collection("db").add(testData);
+    return _db.collection("db").add(testData);
   }
 
   getAllDB()
   {
-    return this._db.collection("db").get();
+    return _db.collection("db").get();
   }
 
   getDB(id)
   {
-    return this._db.collection("db").doc(id).get();
+    return _db.collection("db").doc(id).get();
   }
 
   deleteDB(id)
   {
-    return this._db.collection("db").doc(id).delete();
+    return _db.collection("db").doc(id).delete();
   }
 
 

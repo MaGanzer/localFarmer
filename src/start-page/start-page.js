@@ -57,6 +57,7 @@ function initMap(){
 
     //let popuptext="<font color=\"black\"><b>Thomas Heiles<br>Stra&szlig;e 123<br>54290 Trier</b><p><img src=\"test.jpg\" width=\"180\" height=\"113\"></p></font>";
 
+    //Karte initialisieren
     OpenLayers.Lang.setCode('de');
 
     let zoom = 12;
@@ -75,6 +76,38 @@ function initMap(){
         maxResolution: 156543,
         units: 'meters'
     });
+
+    //Marker
+    /*_db.getAllDB().then(
+        function(docRef){
+            docRef.forEach(function(childNodes) {
+                addMarker(_layer_markers, childNodes.val().lon, childNodes.val().lat);
+            });
+        });
+*/
+    /*_db.ref("db").on('value', function(snap){
+
+        snap.forEach(function(childNodes){
+
+            addMarker(_layer_markers, childNodes.val().lon, childNodes.val().lat);
+
+
+        });
+    });*/
+
+    _db.getAllDB().then(
+        function(docRef) {
+            if (typeof(docRef.valueOf()) != "undefined") {
+               docRef.forEach((child) => {
+                   addMarker(_layer_markers, child.valueOf().lon, child.valueOf().lat);
+               });
+            } else {
+                alert("Fehler beim Laden: Einträge existieren nicht!");
+            }
+        },
+        function(error) {
+            alert("Fehler beim Laden: " + error);
+        });
 
     _layer_mapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
     _layer_markers = new OpenLayers.Layer.Markers("Address", { projection: new OpenLayers.Projection("EPSG:4326"),
