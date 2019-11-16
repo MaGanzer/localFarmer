@@ -37,7 +37,7 @@ class StartPage {
     document.getElementById("search_product").addEventListener("keyup", (e) => enter(e));
     document.getElementById("search_place").addEventListener("keyup", (e) => enter(e));
     document.querySelector('.profil').addEventListener('click', function() {
-      _app._router.navigate("/profil");
+      _app._router.navigate("/profile/B5XVhr9QWJa5T2NvSsAyg46awAg1");
     });
     console.log('Page loaded');
   }
@@ -78,7 +78,7 @@ function initMap(){
     });
 
     //Marker
-    /*_db.getAllDB().then(
+    /*_db.getAllProfiles().then(
         function(docRef){
             docRef.forEach(function(childNodes) {
                 addMarker(_layer_markers, childNodes.val().lon, childNodes.val().lat);
@@ -95,7 +95,7 @@ function initMap(){
         });
     });*/
 
-    _db.getAllDB().then(
+    _db.getAllProfiles().then(
         function(docRef) {
             if (typeof(docRef.valueOf()) != "undefined") {
                docRef.forEach((child) => {

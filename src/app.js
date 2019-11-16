@@ -7,7 +7,7 @@ import Navigo from "navigo/lib/navigo.js";
 import DB from "./database.js";
 
 import StartPage from "./start-page/start-page.js";
-import ProfilPage from "./profil-page/profil-page.js";
+import ProfilePage from "./profile-page/profile-page.js";
 import AngebotPage from "./angebot-page/angebot-page.js";
 import LoginPage from "./login-page/login-page.js";
 import RegisterPage from "./register-page/register-page.js";
@@ -19,20 +19,21 @@ class App {
     this._currentView = null;
 
     //Single Page Router initialisieren
-    this._router = new Navigo();
+    this._router = new Navigo(null, true, '#!');
     this._currentUrl = "";
     this._navAborted = false;
     this._db = new DB();
 
     this._router.on({
-      "*":                    () => this.showStartPage(),
       "/":                    () => this.showStartPage(),
-      "/profil":              () => this.showProfilPage(),
+      "/profile/:uid"    :params => this.showProfilePage(params),
       "/angebot":             () => this.showAngebotPage(),
       "/login":               () => this.showLoginPage(),
       "/register":            () => this.showRegisterPage(),
       "/dbtest":              () => this.showDBTestPage()
     });
+    
+    this._router.notFound(() => {this._router.navigate("/")});
 
     this._router.hooks({
       after: (params) => {
@@ -80,9 +81,7 @@ class App {
     this._db.authChangeListener(user => {
       this.updateMenuItems(user);
       if (user) {
-        console.log("user logged in:", user);
-      } else {
-        console.log("user logged out");
+        app._db.createProfileIfNotExists(user.uid);
       }
     });
   }
@@ -97,8 +96,8 @@ class App {
     this._switchVisibleView(view);
   }
 
-  showProfilPage(){
-    let view = new ProfilPage(this);
+  showProfilePage(params){
+    let view = new ProfilePage(this, params);
     this._switchVisibleView(view);
   }
 

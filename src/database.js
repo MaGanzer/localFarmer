@@ -14,78 +14,95 @@ const _firebaseConfig = {
   appId: "1:818884849098:web:c07fccc6e7c3e8724bf333"
 };
 
+const _defaultProfile = {
+  name: "",
+  address: "",
+  lat: 0.0,
+  lon: 0.0,
+  openHours: "",
+  phone: "",
+  produce: []
+};
+
+let _db;
+let _auth;
+
 class DB {
   constructor() {
     firebase.initializeApp(_firebaseConfig);
-    this._db = firebase.firestore();
-    this._auth = firebase.auth();
-    this._db = firebase.firestore();
+    _db = firebase.firestore();
+    _auth = firebase.auth();
   }
 
-  // ----- database functions
-
-  //dbtest -> testDatenbank, muss vor abgabe gelöscht werden
+  // ----- database functions: test collection -----
   addDBTest(testData)
   {
-    return this._db.collection("dbtest").add(testData);
+    return _db.collection("dbtest").add(testData);
   }
 
   getAllDBTests()
   {
-    return this._db.collection("dbtest").get();
+    return _db.collection("dbtest").get();
   }
 
   getDBTest(id)
   {
-    return this._db.collection("dbtest").doc(id).get();
+    return _db.collection("dbtest").doc(id).get();
   }
 
   deleteDBTest(id)
   {
-    return this._db.collection("dbtest").doc(id).delete();
+    return _db.collection("dbtest").doc(id).delete();
   }
+
+  // ----- database functions: profile collection -----
+  getAllProfiles()
+  {
+    return _db.collection("profiles").get();
+  }
+
+  getProfile(id)
+  {
+    return _db.collection("profiles").doc(id).get();
+  }
+
+  deleteProfile(id)
+  {
+    return _db.collection("profiles").doc(id).delete();
+  }
+  
+  createProfileIfNotExists(uid) {
+    console.log("checking profile for", uid);
+    _db.collection("profiles").doc(uid).get().then((docSnapshot) => {
+      if (!docSnapshot.exists) {
+        console.log("creating profile for", uid);
+        _db.collection("profiles").doc(uid).set(_defaultProfile);
+      } else {
+        console.log("profile exists for", uid);
+      }
+    });
+  }
+  
   
   // ----- auth functions -----
   
   registerUser(email, password)
   {
-    return this._auth.createUserWithEmailAndPassword(email, password);
+    return _auth.createUserWithEmailAndPassword(email, password);
   }
   
   loginUser(email, password) {
-    return this._auth.signInWithEmailAndPassword(email, password);
+    return _auth.signInWithEmailAndPassword(email, password);
   }
   
   logoutUser() {
-    return this._auth.signOut();
+    return _auth.signOut();
   }
   
   authChangeListener(f)
   {
-    return this._auth.onAuthStateChanged(f);
+    return _auth.onAuthStateChanged(f);
   }
-
-  //db richtige Datenbank
-  addDB(testData)
-  {
-    return this._db.collection("db").add(testData);
-  }
-
-  getAllDB()
-  {
-    return this._db.collection("db").get();
-  }
-
-  getDB(id)
-  {
-    return this._db.collection("db").doc(id).get();
-  }
-
-  deleteDB(id)
-  {
-    return this._db.collection("db").doc(id).delete();
-  }
-
 
 }
 
