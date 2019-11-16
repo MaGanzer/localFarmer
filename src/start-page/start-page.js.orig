@@ -86,31 +86,36 @@ function initMap(){
     _layer_mapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
     _map.addLayers([_layer_mapnik, _layer_markers]);
 
+<<<<<<< HEAD
     _allQuery.then(function(querySnapshot){
-        querySnapshot.forEach(function(doc){
-            console.log(doc.id, "=>", doc.data());
-            addMarker(doc.data().lon, doc.data().lat);
-            setDiv(doc.data());
-        });
-    })
-        .catch(function(error) {
-            console.log("Error getting documents: ", error);
-        });
-
-    /*_allQuery
         querySnapshot.forEach(function(doc){
             console.log(doc.id, "=>", doc.data());
             addMarker(_layer_markers, doc.data().lon, doc.data().lat);
             setDiv(doc.data());
+=======
+    let allQuery = _db.getAllProfiles();
+    console.log(allQuery);
+    allQuery.then(function(querySnapshot){
+                querySnapshot.forEach(function(doc){
+                console.log(doc.id, "=>", doc.data());
+                addMarker(doc.data().lon, doc.data().lat);
+                });
+            })
+            .catch(function(error) {
+                console.log("Error getting documents: ", error);
+            });
+>>>>>>> d4c07e1e1c39244f163d8f1b185ff5ac398c57a0
 
-        })
+        });
+    })
         .catch(function(error) {
             console.log("Error setting div: " , error);
-        });*/
+        });
 
     jumpTo(zoom);
 
 }
+
 
 function jumpTo(zoom) {
     let x = Lon2Merc(_lon);
@@ -129,10 +134,10 @@ function Lat2Merc(lat) {
     return 20037508.34 * lat_neu / 180;
 }
 
-function addMarker( lon, lat) {
+function addMarker(layer, lon, lat) {
     console.log(lon, lat);
     let lonLat = new OpenLayers.LonLat(Lon2Merc(lon), Lat2Merc(lat));
-    _layer_markers.addMarker(new OpenLayers.Marker(lonLat));
+    layer.addMarker(new OpenLayers.Marker(lonLat));
 }
 
 function getLocation(){

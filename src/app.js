@@ -7,15 +7,11 @@ import Navigo from "navigo/lib/navigo.js";
 import DB from "./database.js";
 
 import StartPage from "./start-page/start-page.js";
-import ProfilPage from "./profil-page/profil-page.js";
+import ProfilePage from "./profile-page/profile-page.js";
 import AngebotPage from "./angebot-page/angebot-page.js";
 import LoginPage from "./login-page/login-page.js";
 import RegisterPage from "./register-page/register-page.js";
 import DBTestPage from "./dbtest-page/dbtest-page.js";
-
-
-// Initialize Firebase
-
 
 class App {
   constructor() {
@@ -23,20 +19,21 @@ class App {
     this._currentView = null;
 
     //Single Page Router initialisieren
-    this._router = new Navigo();
+    this._router = new Navigo(null, true, '#!');
     this._currentUrl = "";
     this._navAborted = false;
     this._db = new DB();
 
     this._router.on({
-      "*":                    () => this.showStartPage(),
       "/":                    () => this.showStartPage(),
-      "/profil":              () => this.showProfilPage(),
+      "/profile/:uid"    :params => this.showProfilePage(params),
       "/angebot":             () => this.showAngebotPage(),
       "/login":               () => this.showLoginPage(),
       "/register":            () => this.showRegisterPage(),
       "/dbtest":              () => this.showDBTestPage()
     });
+    
+    this._router.notFound(() => {this._router.navigate("/")});
 
     this._router.hooks({
       after: (params) => {
@@ -50,6 +47,10 @@ class App {
         }
       }
     });
+    
+    // ----- references to global elements -----
+    this._loginElements = document.querySelectorAll(".require-login");
+    this._logoutElements = document.querySelectorAll(".require-logout");
     
     // ----- global page elements (header/footer) -----
     let app = this;
@@ -72,9 +73,16 @@ class App {
     document.querySelector("#logoutLink").addEventListener('click', (evt) => {
       evt.preventDefault();
       app._db.logoutUser().then((rsp) => {
-        console.log("logout success");
         // [todo] content hiding; redirection
       });
+    });
+    
+    // auth change listener
+    this._db.authChangeListener(user => {
+      this.updateMenuItems(user);
+      if (user) {
+        app._db.createProfileIfNotExists(user.uid);
+      }
     });
   }
 
@@ -88,8 +96,8 @@ class App {
     this._switchVisibleView(view);
   }
 
-  showProfilPage(){
-    let view = new ProfilPage(this);
+  showProfilePage(params){
+    let view = new ProfilePage(this, params);
     this._switchVisibleView(view);
   }
 
@@ -168,6 +176,25 @@ class App {
     this._router.updatePageLinks();
     console.log("Page Links Updated");
     //end of _switchVisibleContent
+  }
+  
+  // dynamically update the header menu based on the logged in user
+  updateMenuItems(user) {
+    if (user == null) {
+      this._loginElements.forEach(element => {
+        element.classList.add("hidden");
+      });
+      this._logoutElements.forEach(element => {
+        element.classList.remove("hidden");
+      });
+    } else {
+      this._loginElements.forEach(element => {
+        element.classList.remove("hidden");
+      });
+      this._logoutElements.forEach(element => {
+        element.classList.add("hidden");
+      });
+    }
   }
 }
 
