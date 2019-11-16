@@ -69,6 +69,13 @@ class App {
       evt.preventDefault();
       app._router.navigate("/angebot");
     });
+    document.querySelector("#logoutLink").addEventListener('click', (evt) => {
+      evt.preventDefault();
+      app._db.logoutUser().then((rsp) => {
+        console.log("logout success");
+        // [todo] content hiding; redirection
+      });
+    });
   }
 
   start() {

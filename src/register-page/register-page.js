@@ -30,6 +30,18 @@ class RegisterPage {
   }
 
   onLoad() {
+    const regForm = document.querySelector("#registerForm");
+    var app = this._app;
+    registerForm.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      const email = regForm["email"].value;
+      const password = regForm["password"].value;
+      _db.registerUser(email, password).then(cred => {
+        console.log(cred);
+        regForm.reset();
+        app._router.navigate("/");
+      });
+    });
     console.log('Page loaded');
   }
 
