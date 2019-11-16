@@ -13,10 +13,6 @@ import LoginPage from "./login-page/login-page.js";
 import RegisterPage from "./register-page/register-page.js";
 import DBTestPage from "./dbtest-page/dbtest-page.js";
 
-
-// Initialize Firebase
-
-
 class App {
   constructor() {
     this._title = "Local Farmer";
@@ -51,6 +47,10 @@ class App {
       }
     });
     
+    // ----- references to global elements -----
+    this._loginElements = document.querySelectorAll(".require-login");
+    this._logoutElements = document.querySelectorAll(".require-logout");
+    
     // ----- global page elements (header/footer) -----
     let app = this;
     document.querySelector("#startLink").addEventListener('click', (evt) => {
@@ -72,9 +72,18 @@ class App {
     document.querySelector("#logoutLink").addEventListener('click', (evt) => {
       evt.preventDefault();
       app._db.logoutUser().then((rsp) => {
-        console.log("logout success");
         // [todo] content hiding; redirection
       });
+    });
+    
+    // auth change listener
+    this._db.authChangeListener(user => {
+      this.updateMenuItems(user);
+      if (user) {
+        console.log("user logged in:", user);
+      } else {
+        console.log("user logged out");
+      }
     });
   }
 
@@ -168,6 +177,25 @@ class App {
     this._router.updatePageLinks();
     console.log("Page Links Updated");
     //end of _switchVisibleContent
+  }
+  
+  // dynamically update the header menu based on the logged in user
+  updateMenuItems(user) {
+    if (user == null) {
+      this._loginElements.forEach(element => {
+        element.classList.add("hidden");
+      });
+      this._logoutElements.forEach(element => {
+        element.classList.remove("hidden");
+      });
+    } else {
+      this._loginElements.forEach(element => {
+        element.classList.remove("hidden");
+      });
+      this._logoutElements.forEach(element => {
+        element.classList.add("hidden");
+      });
+    }
   }
 }
 

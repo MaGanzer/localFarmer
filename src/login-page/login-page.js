@@ -37,7 +37,6 @@ class LoginPage {
       const email = loginForm["email"].value;
       const password = loginForm["password"].value;
       _db.loginUser(email, password).then(cred => {
-        console.log(cred);
         loginForm.reset();
         app._router.navigate("/");
       });

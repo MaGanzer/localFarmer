@@ -56,6 +56,11 @@ class DB {
   logoutUser() {
     return this._auth.signOut();
   }
+  
+  authChangeListener(f)
+  {
+    return this._auth.onAuthStateChanged(f);
+  }
 
 }
 
