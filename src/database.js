@@ -14,39 +14,47 @@ const _firebaseConfig = {
   appId: "1:818884849098:web:c07fccc6e7c3e8724bf333"
 };
 
-let _db = "";
-let _auth = "";
-
 class DB {
   constructor() {
     firebase.initializeApp(_firebaseConfig);
-    _db = firebase.firestore();
-    _auth = firebase.auth();
+    this._db = firebase.firestore();
+    this._auth = firebase.auth();
   }
 
-  /*registerUser(user)
-  {
-    return _db.collection("users").add(user);
-  }*/
-  
+  // ----- database functions
   addDBTest(testData)
   {
-    return _db.collection("dbtest").add(testData);
+    return this._db.collection("dbtest").add(testData);
   }
   
   getAllDBTests()
   {
-    return _db.collection("dbtest").get();
+    return this._db.collection("dbtest").get();
   }
 
   getDBTest(id)
   {
-    return _db.collection("dbtest").doc(id).get();
+    return this._db.collection("dbtest").doc(id).get();
   }
   
   deleteDBTest(id)
   {
-    return _db.collection("dbtest").doc(id).delete();
+    return this._db.collection("dbtest").doc(id).delete();
+  }
+  
+  // ----- auth functions -----
+  
+  registerUser(email, password)
+  {
+    return this._auth.createUserWithEmailAndPassword(email, password);
+  }
+  
+  loginUser(email, password) {
+    return this._auth.signInWithEmailAndPassword(email, password);
+  }
+  
+  logoutUser() {
+    return this._auth.signOut();
   }
 
 }

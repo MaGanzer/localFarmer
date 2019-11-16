@@ -30,6 +30,18 @@ class LoginPage {
   }
 
   onLoad() {
+    const loginForm = document.querySelector("#loginForm");
+    var app = this._app;
+    loginForm.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      const email = loginForm["email"].value;
+      const password = loginForm["password"].value;
+      _db.loginUser(email, password).then(cred => {
+        console.log(cred);
+        loginForm.reset();
+        app._router.navigate("/");
+      });
+    });
     console.log('Page loaded');
   }
 

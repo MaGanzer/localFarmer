@@ -19,6 +19,7 @@
             <li class="rechts"><a href="/login" id="loginLink">Einloggen</a></li>
             <li class="rechts"><a href="/register" id="registerLink">Registrieren</a></li>
             <li class="rechts"><a href="/angebot" id="angebotLink">Profil bearbeiten</a></li>
+            <li class="rechts"><a href="" id="logoutLink">Abmelden</a></li>
         </ul>
     </header>
     <main>
@@ -161,9 +162,11 @@
     <main>
       <h1>Login</h1>
       <form id="loginForm">
-        E-Mail-Adresse: <input type="text" id="login_email" /><br />
-        Passwort: <input type="password" id="login_password" /><br />
-        <button type="button" id="login_confirm">Einloggen</button>
+        <input type="email" id="email" required="" />
+        <label for="email">E-Mail-Adresse</label><br />
+        <input type="password" id="password" required="" />
+        <label for="password">Passwort</label><br />
+        <button>Einloggen</button>
       </form>
     </main>
   </section>
@@ -173,9 +176,11 @@
     <main>
       <h1>Registrierung</h1>
       <form id="registerForm">
-        E-Mail-Adresse: <input type="text" id="register_email" /><br />
-        Passwort: <input type="password" id="register_password" /><br />
-        <button type="button" id="register_confirm">Registrieren</button>
+        <input type="email" id="email" required="" />
+        <label for="email">E-Mail-Adresse</label><br />
+        <input type="password" id="password" required="" />
+        <label for="password">Passwort</label><br />
+        <button>Registrieren</button>
       </form>
     </main>
   </section>
