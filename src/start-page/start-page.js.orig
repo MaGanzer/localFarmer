@@ -76,13 +76,48 @@ function initMap(){
         units: 'meters'
     });
 
+<<<<<<< HEAD
+    //Marker
+    /*_db.getAllProfiles().then(
+        function(docRef){
+            docRef.forEach(function(childNodes) {
+                addMarker(_layer_markers, childNodes.val().lon, childNodes.val().lat);
+            });
+        });
+*/
+    /*_db.ref("db").on('value', function(snap){
+
+        snap.forEach(function(childNodes){
+
+            addMarker(_layer_markers, childNodes.val().lon, childNodes.val().lat);
+
+
+        });
+    });*/
+
+    _db.getAllProfiles().then(
+        function(docRef) {
+            if (typeof(docRef.valueOf()) != "undefined") {
+               docRef.forEach((child) => {
+                   addMarker(_layer_markers, child.valueOf().lon, child.valueOf().lat);
+               });
+            } else {
+                alert("Fehler beim Laden: Einträge existieren nicht!");
+            }
+        },
+        function(error) {
+            alert("Fehler beim Laden: " + error);
+        });
+
+=======
+>>>>>>> 7438d03c3dc581267be3eb6da3319ffda365694d
     _layer_mapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
 
     //Marker
     _layer_markers = new OpenLayers.Layer.Markers("Address", { projection: new OpenLayers.Projection("EPSG:4326"),
         visibility: true, displayInLayerSwitcher: false });
 
-    let allQuery = _db.getAllProfiles();
+    let allQuery = _db.getAllDB();
     console.log(allQuery);
     allQuery.then(function(querySnapshot){
                 querySnapshot.forEach(function(doc){

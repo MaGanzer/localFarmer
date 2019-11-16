@@ -93,6 +93,17 @@ class DB {
   
   loginUser(email, password) {
     return _auth.signInWithEmailAndPassword(email, password);
+    // let dataRef = this._db.collection("db");
+    // dataRef.get()
+    //        .then(function(querySnapshot){
+    //          querySnapshot.forEach(function(doc){
+    //            console.log(doc.id, "=>", doc.data());
+    //          });
+    //        })
+    //        .catch(function(error) {
+    //          console.log("Error getting documents: ", error);
+    //        });
+    // return dataRef.get();
   }
   
   logoutUser() {
@@ -103,7 +114,6 @@ class DB {
   {
     return _auth.onAuthStateChanged(f);
   }
-
 }
 
 export default DB;
