@@ -37,7 +37,6 @@ class RegisterPage {
       const email = regForm["email"].value;
       const password = regForm["password"].value;
       _db.registerUser(email, password).then(cred => {
-        console.log(cred);
         regForm.reset();
         app._router.navigate("/");
       });

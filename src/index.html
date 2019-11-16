@@ -16,17 +16,17 @@
         <div>&nbsp;</div>
         <h1><a href="/" id="startLink">Local Farmer</a></h1>
         <ul>
-            <li class="rechts"><a href="/login" id="loginLink">Einloggen</a></li>
-            <li class="rechts"><a href="/register" id="registerLink">Registrieren</a></li>
-            <li class="rechts"><a href="/angebot" id="angebotLink">Profil bearbeiten</a></li>
-            <li class="rechts"><a href="" id="logoutLink">Abmelden</a></li>
+            <li class="rechts require-logout hidden"><a href="/login" id="loginLink">Einloggen</a></li>
+            <li class="rechts require-logout hidden"><a href="/register" id="registerLink">Registrieren</a></li>
+            <li class="rechts require-login hidden"><a href="/angebot" id="angebotLink">Profil bearbeiten</a></li>
+            <li class="rechts require-login hidden"><a href="" id="logoutLink">Abmelden</a></li>
         </ul>
     </header>
     <main>
       <!-- die anderen Sections werden hier zur Laufzeit reingeladen -->
     </main>
     <footer>
-      © by Daniel Lupu, Jannik Leutholt und Malte Ganzer
+      © by Daniel Lupu, Jannik Leuthold und Malte Ganzer
     </footer>
   </section>
 
@@ -59,53 +59,32 @@
   </section>
 
   <!-- Section der Detailsicht -->
-  <section id="profil-page" class="hidden">
+  <section id="profile-page" class="hidden">
     <main>
-      <li data-index="$INDEX$">
-        <div class="name">
-          Name:  $LAST_NAME$, $FIRST_NAME$
-        </div>
-        <div class="field phone">
-          Handy:  $PHONE$
-        </div>
-        <div class="field email">
-          Email:  $EMAIL$
-        </div>
-        <div class="field price">
-          Preis:  $PRICE$ €
-        </div>
-        <div class="field street">
-          Straße:  $STREET$
-        </div>
-        <div class="field number">
-          Hausnummer:  $NUMBER$
-        </div>
-        <div class="field zip">
-          ZIP:  $ZIP$
-        </div>
-        <div class="field type">
-          Typ:  $TYPE$
-        </div>
-        <div class="field productname">
-          Productname:  $PRODUCTNAME$
-        </div>
-        <div class="field price">
-          Preis:  $PRICE$
-        </div>
-        <div class="field open">
-          Öffnungszeit:  $OPEN$
-        </div>
-        <div class="actions">
-          <button id="BackToStart">Zurück zur Startseite</button>
-          <input class="first_name" placeholder="1. Vorname" value="$FIRST_NAME$" />
-          <div class="action edit">
-            <a>🖊️</a>
-          </div>
-          <div class="action delete">
-            <a>🗑️</a>
-         </div>
-        </div>
-      </li>
+      <div class="actions">
+        <button id="BackToStart">Zurück zur Startseite</button>
+      </div>
+      <div>
+        Name: <span id="name"></span>
+      </div>
+      <div>
+        Adresse: <span id="address"></span>
+      </div>
+      <div>
+        Telefon: <span id="phone"></span>
+      </div>
+      <div>
+        Öffnungszeiten: <span id="openHours"></span>
+      </div>
+      <div>
+        Angebotene Produkte:
+        <table id="produce-table">
+          <tr>
+            <th>Produktname</th>
+            <th>Preis pro 100 Gramm</th>
+          </tr>
+        </table>
+      </div>
     </main>
   </section>
 

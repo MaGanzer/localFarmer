@@ -37,7 +37,7 @@ class StartPage {
     document.getElementById("search_product").addEventListener("keyup", (e) => enter(e));
     document.getElementById("search_place").addEventListener("keyup", (e) => enter(e));
     document.querySelector('.profil').addEventListener('click', function() {
-      _app._router.navigate("/profil");
+      _app._router.navigate("/profile/B5XVhr9QWJa5T2NvSsAyg46awAg1");
     });
     console.log('Page loaded');
   }
@@ -86,7 +86,7 @@ function initMap(){
     _layer_mapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
     _map.addLayers([_layer_mapnik, _layer_markers]);
 
-    _allQuery.then(function(querySnapshot){
+    let allQuery = _db.getAllDB();
         querySnapshot.forEach(function(doc){
             console.log(doc.id, "=>", doc.data());
             addMarker(_layer_markers, doc.data().lon, doc.data().lat);
