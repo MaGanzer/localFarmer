@@ -10,26 +10,27 @@
 
 </head>
 <body>
-<!-- Section für die appweiten Elemente der Seite -->
+  <!-- Section für die appweiten Elemente der Seite -->
   <section id="app">
     <header>
         <div>&nbsp;</div>
-        <h1>Local Farmer</h1>
+        <h1><a href="/" id="startLink">Local Farmer</a></h1>
         <ul>
-            <li class="rechts"><a href="#">Login</a></li>
-            <li class="rechts"><a href="#">Logout</a></li>
-            <li class="rechts" id="ZuAngebot">Angebot herstellen</li>
+            <li class="rechts"><a href="/login" id="loginLink">Einloggen</a></li>
+            <li class="rechts"><a href="/register" id="registerLink">Registrieren</a></li>
+            <li class="rechts"><a href="/angebot" id="angebotLink">Profil bearbeiten</a></li>
+            <li class="rechts"><a href="" id="logoutLink">Abmelden</a></li>
         </ul>
     </header>
     <main>
-    <!-- die anderen Sections werden hier zur Laufzeit reingeladen -->
+      <!-- die anderen Sections werden hier zur Laufzeit reingeladen -->
     </main>
     <footer>
       © by Daniel Lupu, Jannik Leutholt und Malte Ganzer
     </footer>
   </section>
 
-<!-- Section für die Startseite mit Karte und Übersicht der angezeigten Farmer-->
+  <!-- Section für die Startseite mit Karte und Übersicht der angezeigten Farmer -->
   <section id="start-page" class="hidden">
     <main>
       <div id="suchleiste">
@@ -45,22 +46,19 @@
           <a href="http://creativecommons.org/licenses/by-sa/2.0/deed.de">CC-BY-SA</a>
       </div>
       <ul>
-      <div id="liste">
+        <div id="liste">
           <div class="profil" >
               <img src="image_01.jfif">
               <h2>Gabriela Schreieck</h2>
               <h3>Mühlburg</h3>
               <output>distance</output>
           </div>
-
-
         </ul>
-        </a>
       </div>
     </main>
   </section>
 
-<!--        Section der Detailsicht-->
+  <!-- Section der Detailsicht -->
   <section id="profil-page" class="hidden">
     <main>
       <li data-index="$INDEX$">
@@ -88,12 +86,8 @@
         <div class="field type">
           Typ:  $TYPE$
         </div>
-        <!--
         <div class="field productname">
           Productname:  $PRODUCTNAME$
-        </div> -->
-        <div class="field quantity">
-          Quantität:  $QUANTITY$
         </div>
         <div class="field price">
           Preis:  $PRICE$
@@ -115,16 +109,13 @@
     </main>
   </section>
 
-<!-- Section zum Bearbeiten der Detailsicht-->
+  <!-- Section der Angebotsseite -->
   <section id="angebot-page" class="hidden">
   <main>
       <div>
          <div class="form" id="main-page-edit">
            <ul>
-              <input class="first_name" placeholder="1. Vorname" id="1" />
-           </ul>
-           <ul>
-              <input class="last_name" placeholder="2. Nachname" id="2" />
+              <input class="full_name" placeholder="1. Name" id="1" />
            </ul>
            <ul>
               <input class="street" placeholder="3. Straße" id="3"/>
@@ -149,8 +140,7 @@
             </ul>
             <ul id="duplicate">
               <input class="productname" placeholder="10. Produkt" id="10"/>
-              <input class="quantity" placeholder="11. Quantität"  id="11"/>
-              <input class="price" placeholder="12. Preis" id="12" />
+              <input class="price" placeholder="11. Preis/kg" id="11" />
               <button id="plus">☩</button>
             </ul>
           </div>
@@ -163,7 +153,35 @@
     </main>
   </section>
 
-<!-- Section zum Datenbank testen -->
+  <!-- Section der Loginseite -->
+  <section id="login-page" class="hidden">
+    <main>
+      <h1>Login</h1>
+      <form id="loginForm">
+        <input type="email" id="email" required="" />
+        <label for="email">E-Mail-Adresse</label><br />
+        <input type="password" id="password" required="" />
+        <label for="password">Passwort</label><br />
+        <button>Einloggen</button>
+      </form>
+    </main>
+  </section>
+
+  <!-- Section der Registrierungsseite -->
+  <section id="register-page" class="hidden">
+    <main>
+      <h1>Registrierung</h1>
+      <form id="registerForm">
+        <input type="email" id="email" required="" />
+        <label for="email">E-Mail-Adresse</label><br />
+        <input type="password" id="password" required="" />
+        <label for="password">Passwort</label><br />
+        <button>Registrieren</button>
+      </form>
+    </main>
+  </section>
+
+  <!-- Section der Datenbank-Testseite (nur zu Entwicklungszwecken gedacht) -->
   <section id="dbtest-page" class="hidden">
     <main>
       <fieldset>

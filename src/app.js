@@ -6,12 +6,11 @@ import stylesheet from "./app.css";
 import Navigo from "navigo/lib/navigo.js";
 import DB from "./database.js";
 
-/*import MyReceipes from "./my-receipes/my-receipes.js";
-import ReceipePage from "./receipe-page/receipe-page.js";
-import NewReceipePage from "./new-receipe/new-receipe.js";*/
 import StartPage from "./start-page/start-page.js";
 import ProfilPage from "./profil-page/profil-page.js";
 import AngebotPage from "./angebot-page/angebot-page.js";
+import LoginPage from "./login-page/login-page.js";
+import RegisterPage from "./register-page/register-page.js";
 import DBTestPage from "./dbtest-page/dbtest-page.js";
 
 
@@ -34,12 +33,9 @@ class App {
       "/":                    () => this.showStartPage(),
       "/profil":              () => this.showProfilPage(),
       "/angebot":             () => this.showAngebotPage(),
-      "/dbtest":             () => this.showDBTestPage()
-      /*"/my-receipes":         () => this.showMyReceipes(),
-      "/new":                 () => this.showNewReceipePage(),
-      "/show":   (params, query) => this.showReceipePage(query),
-      "/edit":           (query) => this.showReceipePage(query),
-      "/receipe/delete/:id":params => this.deleteReceipePage(params.id)*/
+      "/login":               () => this.showLoginPage(),
+      "/register":            () => this.showRegisterPage(),
+      "/dbtest":              () => this.showDBTestPage()
     });
 
     this._router.hooks({
@@ -53,6 +49,32 @@ class App {
           this._navAborted = false;
         }
       }
+    });
+    
+    // ----- global page elements (header/footer) -----
+    let app = this;
+    document.querySelector("#startLink").addEventListener('click', (evt) => {
+      evt.preventDefault();
+      app._router.navigate("/");
+    });
+    document.querySelector("#loginLink").addEventListener('click', (evt) => {
+      evt.preventDefault();
+      app._router.navigate("/login");
+    });
+    document.querySelector("#registerLink").addEventListener('click', (evt) => {
+      evt.preventDefault();
+      app._router.navigate("/register");
+    });
+    document.querySelector("#angebotLink").addEventListener('click', (evt) => {
+      evt.preventDefault();
+      app._router.navigate("/angebot");
+    });
+    document.querySelector("#logoutLink").addEventListener('click', (evt) => {
+      evt.preventDefault();
+      app._db.logoutUser().then((rsp) => {
+        console.log("logout success");
+        // [todo] content hiding; redirection
+      });
     });
   }
 
@@ -76,37 +98,20 @@ class App {
     this._switchVisibleView(view);
   }
   
+  showLoginPage(){
+    let view = new LoginPage(this);
+    this._switchVisibleView(view);
+  }
+  
+  showRegisterPage(){
+    let view = new RegisterPage(this);
+    this._switchVisibleView(view);
+  }
+  
   showDBTestPage(){
     let view = new DBTestPage(this);
     this._switchVisibleView(view);
   }
-  
-  /*showMyReceipes() {
-    let view = new MyReceipes(this);
-    this._switchVisibleView(view);
-  }
-
-  showNewReceipePage() {
-    let view = new NewReceipePage(this);
-    this._switchVisibleView(view);
-  }
-
-  showReceipePage(query) {
-    const _query = query.split('=').map(pair => pair.split(':'));
-    console.log("Showing Receipe " + _query[1]);
-
-    let view = new ReceipePage(this, _query[1][0], "display");
-    this._switchVisibleView(view);
-  }
-
-  deleteReceipePage(id) {
-    this._db.deleteReceipe(id).then(function() {
-      console.log("Receipe " + id + "delted");
-      location.reload();
-    }).catch(function(error) {
-      console.error("Error removing document: ", error);
-    });
-  }*/
 
   _switchVisibleView(view) {
     let newUrl = this._router.lastRouteResolved().url;
