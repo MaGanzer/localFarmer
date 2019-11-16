@@ -27,7 +27,6 @@ class AngebotPage {
         city: "",
         zip: "",
         productname: [],
-        quantity: [],
         price: [],
         open: "",
         phone: "",
@@ -79,26 +78,20 @@ class AngebotPage {
    let duplizierbareUl = document.getElementById("duplicate");
    var newUl = document.createElement("ul");
    let produktFeld = document.createElement("input");
-   let quantitatFeld = document.createElement("input");
    let preisFeld = document.createElement("input");
    produktFeld.classList.add("productname");
-
-   quantitatFeld.classList.add("quantity");
    preisFeld.classList.add("price");
 
    produktFeld.placeholder="Produkt";
-   quantitatFeld.placeholder="Quantität";
    preisFeld.placeholder="Preis";
 
    produktFeld.id="10";
-   quantitatFeld.id="11";
-   preisFeld.id="12";
+   preisFeld.id="11";
 
    let minus= document.createElement("button");
    minus.innerHTML="-";
    minus.id="remove";
    newUl.appendChild(produktFeld);
-   newUl.appendChild(quantitatFeld);
    newUl.appendChild(preisFeld);
    newUl.appendChild(minus);
    duplizierbareUl.appendChild(newUl);
@@ -134,11 +127,6 @@ class AngebotPage {
     for(var i=0;i< produktListe.length-1; i++){
     //alert("Dein AUfruf  " + produktListe[i].value.trim()) ;
      productname.push(produktListe[i].value.trim());
-  }
-  let quantitatListe = document.querySelectorAll('#main-page-edit .quantity');
-  let quantity = [];
-  for(var i=0;i< quantitatListe.length-1; i++){
-   quantity.push(quantitatListe[i].value.trim());
   }
   let preisListe = document.querySelectorAll('#main-page-edit .price');
   let price = [];
@@ -198,14 +186,6 @@ class AngebotPage {
       else{
           document.getElementById("10").style.borderColor = "";
       }
-    if (quantitatListe === "") {
-          alert("11. Geben Sie eine gültige Quantität ein.");
-          document.getElementById("11").style.borderColor = "red";
-          return;
-        }
-        else{
-            document.getElementById("11").style.borderColor = "";
-        }
     if (open === "") {
             alert("7. Geben Sie eine gültige Öfnungszeit.");
             document.getElementById("7").style.borderColor = "red";
@@ -231,12 +211,12 @@ class AngebotPage {
                   document.getElementById("9").style.borderColor = "";
               }
     if (preisListe === "") {
-                alert("12. Geben Sie eine gültigen Preis.");
-                document.getElementById("12").style.borderColor = "red";
+                alert("11. Geben Sie eine gültigen Preis.");
+                document.getElementById("11").style.borderColor = "red";
                 return;
                         }
                         else{
-                            document.getElementById("12").style.borderColor = "";
+                            document.getElementById("11").style.borderColor = "";
                         }
               //setCoordinates();
               this._dataset.full_name = fullName;
@@ -245,7 +225,6 @@ class AngebotPage {
               this._dataset.city = city;
               this._dataset.zip = zip;
               this._dataset.productname = productname;
-              this._dataset.quantity = quantity;
               this._dataset.price = price;
               this._dataset.open = open;
               this._dataset.phone = phone;
