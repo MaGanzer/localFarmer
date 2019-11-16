@@ -8,7 +8,6 @@ let _db = "";
 let _map;
 let _layer_mapnik;
 let _layer_markers;
-let _marker;
 let _lat;
 let _lon;
 
@@ -77,70 +76,66 @@ function initMap(){
         units: 'meters'
     });
 
-    //Marker
-    /*_db.getAllDB().then(
-        function(docRef){
-            docRef.forEach(function(childNodes) {
-                addMarker(_layer_markers, childNodes.val().lon, childNodes.val().lat);
-            });
-        });
-*/
-    /*_db.ref("db").on('value', function(snap){
-
-        snap.forEach(function(childNodes){
-
-            addMarker(_layer_markers, childNodes.val().lon, childNodes.val().lat);
-
-
-        });
-    });*/
-
-    _db.getAllDB().then(
-        function(docRef) {
-            if (typeof(docRef.valueOf()) != "undefined") {
-               docRef.forEach((child) => {
-                   addMarker(_layer_markers, child.valueOf().lon, child.valueOf().lat);
-               });
-            } else {
-                alert("Fehler beim Laden: Einträge existieren nicht!");
-            }
-        },
-        function(error) {
-            alert("Fehler beim Laden: " + error);
-        });
-
     _layer_mapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
+
+    //Marker
     _layer_markers = new OpenLayers.Layer.Markers("Address", { projection: new OpenLayers.Projection("EPSG:4326"),
         visibility: true, displayInLayerSwitcher: false });
+
+    let allQuery = _db.getAllDB();
+    console.log(allQuery);
+    allQuery.then(function(querySnapshot){
+                querySnapshot.forEach(function(doc){
+                console.log(doc.id, "=>", doc.data());
+                addMarker(doc.data().lon, doc.data().lat);
+                });
+            })
+            .catch(function(error) {
+                console.log("Error getting documents: ", error);
+            });
+
 
     _map.addLayers([_layer_mapnik, _layer_markers]);
     jumpTo(zoom);
 }
 
 function jumpTo(zoom) {
-    let x = Lon2Merc();
-    let y = Lat2Merc();
+    let x = Lon2Merc(_lon);
+    let y = Lat2Merc(_lat);
     _map.setCenter(new OpenLayers.LonLat(x, y), zoom);
     return false;
 }
 
-function Lon2Merc() {
-    return 20037508.34 * _lon / 180;
+function Lon2Merc(lon) {
+    return 20037508.34 * lon / 180;
 }
 
-function Lat2Merc() {
+function Lat2Merc(lat) {
     let PI = 3.14159265358979323846;
-    let lat = Math.log(Math.tan( (90 + _lat) * PI / 360)) / (PI / 180);
-    return 20037508.34 * lat / 180;
+    let lat_neu = Math.log(Math.tan( (90 + lat) * PI / 360)) / (PI / 180);
+    return 20037508.34 * lat_neu / 180;
 }
 
-function addMarker(layer, lon, lat, popupContentHTML) {
+function addMarker(lon, lat) {
+    console.log(lon, lat);
 
-    let ll = new OpenLayers.LonLat(Lon2Merc(lon), Lat2Merc(lat));
+    // let lonLat = new OpenLayers.LonLat( lon , lat )
+    //     .transform(
+    //         new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+    //         _map.getProjectionObject() // to Spherical Mercator Projection
+    //     );
+
+    let lonLat = new OpenLayers.LonLat(Lon2Merc(lon), Lat2Merc(lat));
+
+    _layer_markers.addMarker(new OpenLayers.Marker(lonLat));
+
+    //let markers = new OpenLayers.Layer.Markers("Markers");
+
+    /*let ll = new OpenLayers.LonLat(Lon2Merc(lon), Lat2Merc(lat));
     let feature = new OpenLayers.Feature(layer, ll);
     feature.closeBox = true;
     feature.popupClass = OpenLayers.Class(OpenLayers.Popup.FramedCloud, {minSize: new OpenLayers.Size(300, 180) } );
-    feature.data.popupContentHTML = popupContentHTML;
+    //feature.data.popupContentHTML = popupContentHTML;
     feature.data.overflow = "hidden";
 
     _marker = new OpenLayers.Marker(ll);
@@ -159,7 +154,7 @@ function addMarker(layer, lon, lat, popupContentHTML) {
     _marker.events.register("mousedown", feature, markerClick);
 
     layer.addMarker(_marker);
-    _map.addPopup(feature.createPopup(feature.closeBox));
+    _map.addPopup(feature.createPopup(feature.closeBox));*/
 }
 
 function getLocation(){

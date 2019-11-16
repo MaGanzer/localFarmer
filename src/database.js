@@ -19,7 +19,6 @@ class DB {
     firebase.initializeApp(_firebaseConfig);
     this._db = firebase.firestore();
     this._auth = firebase.auth();
-    this._db = firebase.firestore();
   }
 
   // ----- database functions
@@ -68,6 +67,17 @@ class DB {
 
   getAllDB()
   {
+    // let dataRef = this._db.collection("db");
+    // dataRef.get()
+    //        .then(function(querySnapshot){
+    //          querySnapshot.forEach(function(doc){
+    //            console.log(doc.id, "=>", doc.data());
+    //          });
+    //        })
+    //        .catch(function(error) {
+    //          console.log("Error getting documents: ", error);
+    //        });
+    // return dataRef.get();
     return this._db.collection("db").get();
   }
 
@@ -80,8 +90,6 @@ class DB {
   {
     return this._db.collection("db").doc(id).delete();
   }
-
-
 }
 
 export default DB;
