@@ -81,14 +81,36 @@ function initMap(){
     });
 
     //Marker
-    _db.getAllDBTests().then(
+    /*_db.getAllDB().then(
         function(docRef){
-            let i = null;
-            for (i in docRef){
-                addMarker(_layer_markers, i.data().lon, i.data().lat)
+            docRef.forEach(function(childNodes) {
+                addMarker(_layer_markers, childNodes.val().lon, childNodes.val().lat);
+            });
+        });
+*/
+    /*_db.ref("db").on('value', function(snap){
+
+        snap.forEach(function(childNodes){
+
+            addMarker(_layer_markers, childNodes.val().lon, childNodes.val().lat);
+
+
+        });
+    });*/
+
+    _db.getAllDB().then(
+        function(docRef) {
+            if (typeof(docRef.valueOf()) != "undefined") {
+               docRef.forEach((child) => {
+                   addMarker(_layer_markers, child.valueOf().lon, child.valueOf().lat);
+               });
+            } else {
+                alert("Fehler beim Laden: Einträge existieren nicht!");
             }
-        }
-    )
+        },
+        function(error) {
+            alert("Fehler beim Laden: " + error);
+        });
 
     _layer_mapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
     _layer_markers = new OpenLayers.Layer.Markers("Address", { projection: new OpenLayers.Projection("EPSG:4326"),

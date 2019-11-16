@@ -26,12 +26,13 @@ class DB {
   {
     return _db.collection("users").add(user);
   }*/
-  
+
+  //dbtest -> testDatenbank, muss vor abgabe gelöscht werden
   addDBTest(testData)
   {
     return _db.collection("dbtest").add(testData);
   }
-  
+
   getAllDBTests()
   {
     return _db.collection("dbtest").get();
@@ -41,10 +42,31 @@ class DB {
   {
     return _db.collection("dbtest").doc(id).get();
   }
-  
+
   deleteDBTest(id)
   {
     return _db.collection("dbtest").doc(id).delete();
+  }
+
+  //db richtige Datenbank
+  addDB(testData)
+  {
+    return _db.collection("db").add(testData);
+  }
+
+  getAllDB()
+  {
+    return _db.collection("db").get();
+  }
+
+  getDB(id)
+  {
+    return _db.collection("db").doc(id).get();
+  }
+
+  deleteDB(id)
+  {
+    return _db.collection("db").doc(id).delete();
   }
 
 
