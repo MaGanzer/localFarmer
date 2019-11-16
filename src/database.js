@@ -47,6 +47,7 @@ class DB {
     return _db.collection("dbtest").doc(id).delete();
   }
 
+
 }
 
 export default DB;

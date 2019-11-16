@@ -415,4 +415,19 @@ function noInput(){
     document.getElementById("search_place").style.borderColor = "red";
 }
 
+function setCoordinates(datensatz){
+
+    let place = datensatz.adresse.getValue();
+
+    let request = new XMLHttpRequest();
+    let url = 'https://nominatim.openstreetmap.org/search?q='+ place + '&format=json';
+    request.open('GET', url, true);
+
+    request.onload = function() {
+        let data = JSON.parse(this.response);
+        datensatz.lat = parseFloat(data[0].lat);
+        datensatz.lon = parseFloat(data[0].lon);
+    }
+}
+
 export default AngebotPage;
