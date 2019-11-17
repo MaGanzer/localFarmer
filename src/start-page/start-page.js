@@ -10,6 +10,7 @@ let _layer_mapnik;
 let _layer_markers;
 let _lat;
 let _lon;
+let _allQuery;
 
 class StartPage {
   constructor(app) {
@@ -76,26 +77,37 @@ function initMap(){
         units: 'meters'
     });
 
-    _layer_mapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
+    _allQuery = _db.getAllDB(); //lokale Kopie der DB
+    console.log(_allQuery);
 
     //Marker
     _layer_markers = new OpenLayers.Layer.Markers("Address", { projection: new OpenLayers.Projection("EPSG:4326"),
         visibility: true, displayInLayerSwitcher: false });
-
-    let allQuery = _db.getAllProfiles();
-    console.log(allQuery);
-    allQuery.then(function(querySnapshot){
-                querySnapshot.forEach(function(doc){
-                console.log(doc.id, "=>", doc.data());
-                addMarker(doc.data().lon, doc.data().lat);
-                });
-            })
-            .catch(function(error) {
-                console.log("Error getting documents: ", error);
-            });
-
-
+    _layer_mapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
     _map.addLayers([_layer_mapnik, _layer_markers]);
+
+    _allQuery.then(function(querySnapshot){
+        querySnapshot.forEach(function(doc) {
+            console.log(doc.id, "=>", doc.data());
+            addMarker( doc.data().lon, doc.data().lat);
+            setDiv(doc.data())
+        })
+        .catch(function(error) {
+            console.log("Error getting documents: ", error);
+        })
+    });
+
+    /*_allQuery
+        querySnapshot.forEach(function(doc){
+            console.log(doc.id, "=>", doc.data());
+            addMarker(_layer_markers, doc.data().lon, doc.data().lat);
+            setDiv(doc.data());
+
+        })
+        .catch(function(error) {
+            console.log("Error setting div: " , error);
+        });*/
+
     jumpTo(zoom);
 }
 
@@ -118,43 +130,8 @@ function Lat2Merc(lat) {
 
 function addMarker(lon, lat) {
     console.log(lon, lat);
-
-    // let lonLat = new OpenLayers.LonLat( lon , lat )
-    //     .transform(
-    //         new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-    //         _map.getProjectionObject() // to Spherical Mercator Projection
-    //     );
-
     let lonLat = new OpenLayers.LonLat(Lon2Merc(lon), Lat2Merc(lat));
-
     _layer_markers.addMarker(new OpenLayers.Marker(lonLat));
-
-    //let markers = new OpenLayers.Layer.Markers("Markers");
-
-    /*let ll = new OpenLayers.LonLat(Lon2Merc(lon), Lat2Merc(lat));
-    let feature = new OpenLayers.Feature(layer, ll);
-    feature.closeBox = true;
-    feature.popupClass = OpenLayers.Class(OpenLayers.Popup.FramedCloud, {minSize: new OpenLayers.Size(300, 180) } );
-    //feature.data.popupContentHTML = popupContentHTML;
-    feature.data.overflow = "hidden";
-
-    _marker = new OpenLayers.Marker(ll);
-    _marker.feature = feature;
-
-    let markerClick = function(evt) {
-        if (this.popup == null) {
-            this.popup = this.createPopup(this.closeBox);
-            _map.addPopup(this.popup);
-            this.popup.show();
-        } else {
-            this.popup.toggle();
-        }
-        OpenLayers.Event.stop(evt);
-    };
-    _marker.events.register("mousedown", feature, markerClick);
-
-    layer.addMarker(_marker);
-    _map.addPopup(feature.createPopup(feature.closeBox));*/
 }
 
 function getLocation(){
@@ -218,19 +195,33 @@ function searchPlace(place){
         _lon = parseFloat(data[0].lon);
 
         jumpTo(12);
-    }
 
+        //Divs zur Auswahl
+        let parent = document.getElementById("liste");
+        if (parent.hasChildNodes()){
+            while(parent.firstChild){
+                parent.firstChild.remove()
+            }
+        }
+
+        _allQuery.then(function(querySnapshot){
+            querySnapshot.forEach(function(doc){
+                console.log(doc.id, "=>", doc.data());
+                setDiv(doc.data());
+            });
+        })
+            .catch(function(error) {
+                console.log("Error setting Divs: " , error);
+            });
+    }
     request.send();
+
 }
 
 function searchProduct(product){
-    //db select und anzeigen auf karte
-    let landwirte = null;
-    let i = null;
-    for (i in landwirte){
-        
-    }
-    //anzeigen in Liste (nur elemente auf karte?)
+
+
+
 }
 
 function noInput(){
@@ -241,6 +232,36 @@ function noInput(){
 function enter(event){
     if (event.keyCode === 13) {
         search()
+    }
+}
+
+function getDistance(lon1, lat1,){
+    //entfernung zum Kartenmittelpunkt in km, Quelle: https://www.kompf.de/gps/distcalc.html
+    console.log("Bauer: ", parseFloat(lon1), parseFloat(lat1), " Zentrum: ", _lon, _lat);
+
+    let lat = (parseFloat(lat1) + _lat) / 2 * 0.01745; //Umrechnung in Bogenmaß
+    let dx = 111.3 * Math.cos(lat) * (parseFloat(lon1) - _lon);
+    let dy = 111.3 * (parseFloat(lat1) - _lat);
+
+    console.log( lat, dx, dy);
+    let distance = Math.sqrt(dx * dx + dy * dy);
+    console.log(distance);
+    return distance;
+}
+
+function setDiv(daten){
+    let distance = getDistance(daten.lon, daten.lat);
+    console.log(distance);
+    if (distance <=  50){                                       //zeigt nur Datensätze an die näher als 50 km zum Kartenmittelpunkt sind
+        let child = document.createElement("div");
+        let parent = document.getElementById("liste");
+        child.className = "profil";
+        parent.appendChild(child);
+        console.log
+        child.innerHTML =
+            daten.name  + " " +
+            daten.adresse + " " +
+            parseInt(distance) + " km entfernt";
     }
 }
 

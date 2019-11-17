@@ -114,6 +114,10 @@ class DB {
   {
     return _auth.onAuthStateChanged(f);
   }
+  //bitte nicht löschen
+  getAllDB() {
+    return _db.collection("db").get();
+  }
 }
 
 export default DB;
