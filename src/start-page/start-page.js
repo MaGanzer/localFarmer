@@ -201,12 +201,7 @@ function searchPlace(place){
         jumpTo(12);
 
         //Divs zur Auswahl
-        let parent = document.getElementById("liste");
-        if (parent.hasChildNodes()){
-            while(parent.firstChild){
-                parent.firstChild.remove()
-            }
-        }
+        deleteProfiles();
 
         _allQuery.then(function(querySnapshot){
             querySnapshot.forEach(function(doc){
@@ -226,9 +221,24 @@ function searchPlace(place){
 }
 
 function searchProduct(product){
+    console.log(product);
 
+    deleteProfiles();
 
-
+    _allQuery.then(function(querySnapshot){
+        querySnapshot.forEach(function(doc){
+            if (typeof doc.data().produce !== "undefined") {
+                doc.data().produce.forEach(function (element) {
+                    if (element.name == product){
+                        setDiv(doc.id, doc.data());
+                    }
+                })
+            }
+        });
+    })
+        .catch(function(error) {
+            console.log("Error getting Products: " , error);
+        });
 }
 
 function noInput(){
@@ -275,6 +285,15 @@ function setDiv(id, daten){
         child.addEventListener('click', function() {
             _app._router.navigate("/profile/" + id);
         });
+    }
+}
+
+function deleteProfiles() {
+    let parent = document.getElementById("liste");
+    if (parent.hasChildNodes()){
+        while(parent.firstChild){
+            parent.firstChild.remove()
+        }
     }
 }
 
