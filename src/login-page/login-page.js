@@ -32,6 +32,11 @@ class LoginPage {
   onLoad() {
     const loginForm = document.querySelector("#login-form");
     var app = this._app;
+    let home = document.querySelector('#login-home');
+    home.addEventListener("click", (evt) => {
+      evt.preventDefault();
+      this._app._router.navigate("/");
+    });
     loginForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
       const email = loginForm["login-email"].value;

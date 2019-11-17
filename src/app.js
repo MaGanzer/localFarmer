@@ -11,7 +11,6 @@ import ProfilePage from "./profile-page/profile-page.js";
 import EditPage from "./edit-page/edit-page.js";
 import LoginPage from "./login-page/login-page.js";
 import RegisterPage from "./register-page/register-page.js";
-import DBTestPage from "./dbtest-page/dbtest-page.js";
 
 class App {
   constructor() {
@@ -30,8 +29,7 @@ class App {
       "/profile/:uid"    :params => this.showProfilePage(params),
       "/edit":                () => this.showEditPage(),
       "/login":               () => this.showLoginPage(),
-      "/register":            () => this.showRegisterPage(),
-      "/dbtest":              () => this.showDBTestPage()
+      "/register":            () => this.showRegisterPage()
     });
     
     this._router.notFound(() => {this._router.navigate("/")});
@@ -73,9 +71,7 @@ class App {
     });
     document.querySelector("#logout-link").addEventListener('click', (evt) => {
       evt.preventDefault();
-      app._db.logoutUser().then((rsp) => {
-        // [todo] content hiding; redirection
-      });
+      app._db.logoutUser();
     });
     
     // auth change listener
@@ -115,11 +111,6 @@ class App {
   
   showRegisterPage(){
     let view = new RegisterPage(this);
-    this._switchVisibleView(view);
-  }
-  
-  showDBTestPage(){
-    let view = new DBTestPage(this);
     this._switchVisibleView(view);
   }
 

@@ -32,6 +32,11 @@ class RegisterPage {
   onLoad() {
     const regForm = document.querySelector("#register-form");
     var app = this._app;
+    let home = document.querySelector('#register-home');
+    home.addEventListener("click", (evt) => {
+      evt.preventDefault();
+      this._app._router.navigate("/");
+    });
     regForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
       const email = regForm["register-email"].value;

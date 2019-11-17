@@ -18,7 +18,7 @@ class EditPage {
       postcodeTown: "",
       phone: "",
       openHours: "",
-      products: []
+      produce: []
     };
   }
 
@@ -42,20 +42,38 @@ class EditPage {
     this._openHours = this._ul.querySelector("#edit-open-hours");
     this._plusButton = document.querySelector("#edit-plus-button");
     
+    let home = document.querySelector('#edit-home');
+    home.addEventListener("click", (evt) => {
+      evt.preventDefault();
+      this._app._router.navigate("/");
+    });
+    
     const editForm = document.querySelector("#edit-form");
     editForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this.processInput();
     });
 
-    this._plusButton.addEventListener('click', () => {
-      this.addProductRow();
+    this._plusButton.addEventListener("click", () => {
+      this.addProduceRow();
     });
     
-    let firstProduct = this._ul.querySelectorAll(".edit-product")[0];
-    let firstMinus = firstProduct.querySelector(".minus-button");
+    let firstProduce = this._ul.querySelectorAll(".edit-produce")[0];
+    let firstMinus = firstProduce.querySelector(".minus-button");
     firstMinus.addEventListener('click', () => {
-      this.removeProductRow(firstProduct);
+      this.removeProduceRow(firstProduce);
+    });
+    let firstProdName = firstProduce.querySelector(".edit-produce-name");
+    firstProduce.value="ASDF";
+    console.log(firstProdName);
+    firstProdName.addEventListener("change", () => {
+      console.log("change");
+      this.updateRequiredFields();
+    });
+    let firstProdPrice = firstProduce.querySelector(".edit-produce-price");
+    firstProdPrice.addEventListener("change", () => {
+      console.log("change");
+      this.updateRequiredFields();
     });
     
     // load user data
@@ -79,6 +97,31 @@ class EditPage {
     return "Profil";
   }
   
+  updateRequiredFields() {
+    console.log("update fields");
+    let produceElements = document.querySelector("#edit-ul").querySelectorAll(".edit-produce");
+    if (produceElements != null && produceElements.length > 1) {
+      produceElements.forEach(element => {
+        let prodName = element.querySelector(".edit-produce-name");
+        let prodPrice = element.querySelector(".edit-produce-price");
+        if ((prodName.value != null && prodName.value != "") || (prodPrice.value != null && prodPrice.value != "")) {
+          console.log("required");
+          prodName.required = true;
+          prodPrice.required = true;
+        } else {
+          console.log("not required");
+          prodName.required = false;
+          prodPrice.required = false;
+        }
+      });
+    } else if (produceElements != null && produceElements.length == 1) {
+      let prodName = produceElements[0].querySelector(".edit-produce-name")
+      let prodPrice = produceElements[0].querySelector(".edit-produce-price")
+      prodName.required = false;
+      prodPrice.required = false;
+    }
+  }
+  
   loadUserData() {
     if (this._app._loggedInUser) {
       this._app._db.getProfile(this._app._loggedInUser.uid).then(docRef => {
@@ -88,36 +131,38 @@ class EditPage {
         this._postcodeTown.value = profile.postcodeTown;
         this._phone.value = profile.phone;
         this._openHours.value = profile.openHours;
-        this.removeAllProducts();
-        profile.products.forEach(product => {
-          let row = this.addProductRow();
-          let prodName = row.querySelector(".edit-product-name");
-          let prodPrice = row.querySelector(".edit-product-price");
-          let prodUnit = row.querySelector(".edit-product-unit");
-          prodName.value = product.name;
-          prodPrice.value = product.price;
-          prodUnit.value = product.unit;
-        });
-        this.removeEmptyProducts();
+        if (profile.produce) {
+          this.removeAllProduce();
+          profile.produce.forEach(produce => {
+            let row = this.addProduceRow();
+            let prodName = row.querySelector(".edit-produce-name");
+            let prodPrice = row.querySelector(".edit-produce-price");
+            let prodUnit = row.querySelector(".edit-produce-unit");
+            prodName.value = produce.name;
+            prodPrice.value = produce.price;
+            prodUnit.value = produce.unit;
+          });
+          this.removeEmptyProduce();
+        }
       });
     }
   }
   
-  removeAllProducts() {
-    let productElements = document.querySelector("#edit-ul").querySelectorAll(".edit-product");
-    if (productElements != null) {
-      productElements.forEach(element => {
+  removeAllProduce() {
+    let produceElements = document.querySelector("#edit-ul").querySelectorAll(".edit-produce");
+    if (produceElements != null) {
+      produceElements.forEach(element => {
         element.remove();
       });
     }
   }
   
-  removeEmptyProducts() {
-    let productElements = document.querySelector("#edit-ul").querySelectorAll(".edit-product");
-    if (productElements != null && productElements.length > 1) {
-      productElements.forEach(element => {
-        let prodName = element.querySelector(".edit-product-name").value.trim();
-        let prodPrice = element.querySelector(".edit-product-price").value.trim();
+  removeEmptyProduce() {
+    let produceElements = document.querySelector("#edit-ul").querySelectorAll(".edit-produce");
+    if (produceElements != null && produceElements.length > 1) {
+      produceElements.forEach(element => {
+        let prodName = element.querySelector(".edit-produce-name").value.trim();
+        let prodPrice = element.querySelector(".edit-produce-price").value.trim();
         if ((prodName == null || prodName == "") && (prodPrice == null || prodPrice == "")) {
           element.remove();
         }
@@ -127,37 +172,38 @@ class EditPage {
   
   processInput() {
     console.log("edit form submit");
+    this.removeEmptyProduce();
     let name = this._name.value.trim();
     let streetNumber = this._streetNumber.value.trim();
     let postcodeTown = this._postcodeTown.value.trim();
     let phone = this._phone.value.trim();
     let openHours = this._openHours.value.trim();
-    let products = [];
+    let produce = [];
 
-    let productElements = this._ul.querySelectorAll(".edit-product");
-    if (productElements != null) {
-      console.log("products found");
-      productElements.forEach((productElement) => {
-        let prodName = productElement.querySelector(".edit-product-name").value.trim();
-        let prodPrice = productElement.querySelector(".edit-product-price").value.trim();
-        let prodUnit = productElement.querySelector(".edit-product-unit").value.trim();
-        let product = {
+    let produceElements = this._ul.querySelectorAll(".edit-produce");
+    if (produceElements != null) {
+      console.log("produce found");
+      produceElements.forEach((produceElement) => {
+        let prodName = produceElement.querySelector(".edit-produce-name").value.trim();
+        let prodPrice = produceElement.querySelector(".edit-produce-price").value.trim();
+        let prodUnit = produceElement.querySelector(".edit-produce-unit").value.trim();
+        let newProduce = {
           name: prodName,
           price: prodPrice,
           unit: prodUnit
         };
-        products.push(product);
+        produce.push(newProduce);
       });
     }
     
-    console.log("products:", products);
+    console.log("produce:", produce);
     
     this._dataset.name = name;
     this._dataset.streetNumber = streetNumber;
     this._dataset.postcodeTown = postcodeTown;
     this._dataset.phone = phone;
     this._dataset.openHours = openHours;
-    this._dataset.products = products;
+    this._dataset.produce = produce;
     this.getCoordinates(streetNumber + ", " + postcodeTown);
   }
   
@@ -182,23 +228,29 @@ class EditPage {
     console.log(this._dataset);
   }
   
-  addProductRow() {
+  addProduceRow() {
     let newLi = document.createElement("li");
-    newLi.classList.add("edit-product");
+    newLi.classList.add("edit-produce");
     
     let nameInput = document.createElement("input");
     nameInput.type="text";
-    nameInput.classList.add("edit-product-name");
+    nameInput.classList.add("edit-produce-name");
     nameInput.placeholder = "Bezeichnung";
+    nameInput.addEventListener("change", () => {
+      this.updateRequiredFields();
+    });
     
     let spaceNode1 = document.createTextNode(" ");
     
     let priceInput = document.createElement("input");
     priceInput.type="number";
     priceInput.placeholder = "Preis";
-    priceInput.classList.add("edit-product-price");
+    priceInput.classList.add("edit-produce-price");
     priceInput.min = 0;
     priceInput.step = "0.01";
+    priceInput.addEventListener("change", () => {
+      this.updateRequiredFields();
+    });
     
     let unitNode = document.createTextNode(" € / ");
     
@@ -206,13 +258,16 @@ class EditPage {
     unitOptionKg.text = "kg";
     let unitOption100g = document.createElement("option");
     unitOption100g.text = "100 g";
+    let unitOptionL = document.createElement("option");
+    unitOptionL.text = "l";
     let unitOptionPiece = document.createElement("option");
     unitOptionPiece.text = "Stück";
     
     let unitSelect = document.createElement("select");
-    unitSelect.classList.add("edit-product-unit");
+    unitSelect.classList.add("edit-produce-unit");
     unitSelect.appendChild(unitOptionKg);
     unitSelect.appendChild(unitOption100g);
+    unitSelect.appendChild(unitOptionL);
     unitSelect.appendChild(unitOptionPiece);
     
     let spaceNode2 = document.createTextNode(" ");
@@ -222,7 +277,6 @@ class EditPage {
     minusButton.type = "button";
     minusButton.innerHTML="-";
     
-    
     newLi.appendChild(nameInput);
     newLi.appendChild(spaceNode1);
     newLi.appendChild(priceInput);
@@ -231,10 +285,10 @@ class EditPage {
     newLi.appendChild(spaceNode2);
     newLi.appendChild(minusButton);
     this._ul.appendChild(newLi);
-    this._ul.querySelectorAll(".edit-product:last-child")[0].after(this._plusButton);
+    this._ul.querySelectorAll(".edit-produce:last-child")[0].after(this._plusButton);
     
     minusButton.addEventListener('click', () => {
-      this.removeProductRow(newLi);
+      this.removeProduceRow(newLi);
     });
     
     this.updateMinuses();
@@ -242,18 +296,18 @@ class EditPage {
     return newLi;
   }
   
-  removeProductRow(row) {
+  removeProduceRow(row) {
     row.remove();
     this.updateMinuses();
   }
   
   updateMinuses() {
-    let products = this._ul.querySelectorAll(".edit-product");
-    if (products.length == 1) {
-      products[0].querySelector(".minus-button").classList.add("invisible");
+    let produce = this._ul.querySelectorAll(".edit-produce");
+    if (produce.length == 1) {
+      produce[0].querySelector(".minus-button").classList.add("invisible");
     } else {
-      products.forEach((product) => {
-        product.querySelector(".minus-button").classList.remove("invisible");
+      produce.forEach((produce) => {
+        produce.querySelector(".minus-button").classList.remove("invisible");
       });
     }
   }
