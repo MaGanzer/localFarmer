@@ -1,12 +1,8 @@
-/*
- * Dieses Stylesheet darf nur Selektoren beinhalten, die mit #app beginnen.
- * Denn wir wollen nicht, dass hier Eigenschaften aus anderen Bereichen der
- * Anwendung überschrieben werden.
- */
 #app {
-    /*background-color: var(--header-normal-background-color);*/ /* blau*/
-    /*flex: 1;*/
-    /* background-image: url("resources/images/background.jpg"); /*Weinberg als Hintergrundbild*/
+  background-color: var(--main-background-color);
+  display: flex;
+  flex-flow: column;
+  height: 100%;
 }
 
 /*
@@ -25,6 +21,7 @@
   padding: 0;
   position: sticky;
   top: 0;
+  flex: 0 1 auto;
 }
 
 #app header a,
@@ -62,9 +59,9 @@
  */
 #app main {
   width: 100%;
-  min-height: 100vh;
   padding-top: 1em;
   background-color: var(--main-background-color);
+  flex: 1 1 auto;
 }
 
 /*
@@ -77,4 +74,5 @@
   width: 100%;
   background-color: var(--footer-background-color);
   height: 2em;
+  flex: 0 1 40px;
 }
