@@ -174,6 +174,7 @@ function search(){
     console.log(place);
 
     if (place != "" && product != ""){
+       // searchBoth(product, place);
         searchPlace(place);
         searchProduct(product);
     }else if(place != ""){
@@ -207,7 +208,7 @@ function searchPlace(place){
             querySnapshot.forEach(function(doc){
                 //if (typeof querySnapshot !== "undefined") {
                     console.log(doc.id, "=>", doc.data());
-                    setDiv(doc.data());
+                    setDiv(doc.id, doc.data());
                // }
             });
         })
@@ -239,6 +240,10 @@ function searchProduct(product){
         .catch(function(error) {
             console.log("Error getting Products: " , error);
         });
+}
+
+function searchBoth(product, place){
+
 }
 
 function noInput(){
