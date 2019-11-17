@@ -89,7 +89,7 @@ function initMap(){
     _allQuery.then(function(querySnapshot){
         querySnapshot.forEach(function(doc) {
             console.log(doc.id, "=>", doc.data());
-            addMarker(_layer_markers, doc.data().lon, doc.data().lat);
+            addMarker( doc.data().lon, doc.data().lat);
             setDiv(doc.data())
         })
         .catch(function(error) {
