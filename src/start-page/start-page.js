@@ -91,7 +91,7 @@ function initMap(){
             if (typeof querySnapshot !== "undefined"){
                 console.log(doc.id, "=>", doc.data());
                 addMarker( doc.data().lon, doc.data().lat);
-                setDiv(doc.data());
+                setDiv(doc.id, doc.data());
             }
 
         })
@@ -256,7 +256,7 @@ function getDistance(lon1, lat1,){
     return distance;
 }
 
-function setDiv(daten){
+function setDiv(id, daten){
     let distance = getDistance(daten.lon, daten.lat);
     console.log(distance);
     if (distance <=  50){                                       //zeigt nur Datensätze an die näher als 50 km zum Kartenmittelpunkt sind
@@ -270,7 +270,7 @@ function setDiv(daten){
             daten.adresse + " " +
             parseInt(distance) + " km entfernt";
         child.addEventListener('click', function() {
-            _app._router.navigate("/profile/B5XVhr9QWJa5T2NvSsAyg46awAg1");
+            _app._router.navigate("/profile/" + id);
         });
     }
 }
