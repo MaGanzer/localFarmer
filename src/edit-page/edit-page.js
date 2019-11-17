@@ -13,12 +13,12 @@ class EditPage {
     _db = app._db;
 
     this._dataset = {
-        name: "",
-        street_number: "",
-        postcode_town: "",
-        products: [],
-        open: "",
-        phone: ""
+      name: "",
+      streetNumber: "",
+      postcodeTown: "",
+      phone: "",
+      openHours: "",
+      products: []
     };
   }
 
@@ -34,35 +34,66 @@ class EditPage {
   }
 
   onLoad() {
+    this._ul = document.querySelector("#edit-ul");
+    this._name = this._ul.querySelector("#edit-name");
+    this._streetNumber = this._ul.querySelector("#edit-street-number");
+    this._postcodeTown = this._ul.querySelector("#edit-postcode-town");
+    this._phone = this._ul.querySelector("#edit-phone");
+    this._openHours = this._ul.querySelector("#edit-open-hours");
+    this._products = [];
+    
     const editForm = document.querySelector("#edit-form");
-    var app = this._app;
     editForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      alert("Daten speichern");
+      this.processInput();
     });
 
-    document.getElementById("plus").addEventListener('click', function() {
-      let duplizierbareUl = document.getElementById("duplicate");
-      var newUl = document.createElement("ul");
-      let produktFeld = document.createElement("input");
-      let preisFeld = document.createElement("input");
-      produktFeld.classList.add("productname");
-      preisFeld.classList.add("price");
+    document.getElementById("plus").addEventListener('click', () => {
+      let newLi = document.createElement("li");
+      newLi.classList.add("edit-product");
+      
+      let nameInput = document.createElement("input");
+      nameInput.classList.add("edit-product-name");
+      nameInput.placeholder = "Bezeichnung";
+      
+      let spaceNode1 = document.createTextNode(" ");
+      
+      let priceInput = document.createElement("input");
+      priceInput.placeholder = "Preis";
+      priceInput.classList.add("edit-product-price");
+      
+      let unitNode = document.createTextNode(" € / ");
+      
+      let unitOptionKg = document.createElement("option");
+      unitOptionKg.text = "kg";
+      let unitOption100g = document.createElement("option");
+      unitOption100g.text = "100 g";
+      let unitOptionPiece = document.createElement("option");
+      unitOptionPiece.text = "Stück";
+      
+      let unitSelect = document.createElement("select");
+      unitSelect.classList.add("edit-product-unit");
+      unitSelect.appendChild(unitOptionKg);
+      unitSelect.appendChild(unitOption100g);
+      unitSelect.appendChild(unitOptionPiece);
+      
+      let spaceNode2 = document.createTextNode(" ");
 
-      produktFeld.placeholder="Produkt";
-      preisFeld.placeholder="Preis";
-
-      produktFeld.id="10";
-      preisFeld.id="11";
-      let minus= document.createElement("button");
-      minus.innerHTML="-";
-      minus.id="remove";
-      newUl.appendChild(produktFeld);
-      newUl.appendChild(preisFeld);
-      newUl.appendChild(minus);
-      duplizierbareUl.appendChild(newUl);
-      minus.addEventListener('click', function() {
-        newUl.remove();
+      let minusButton = document.createElement("button");
+      minusButton.innerHTML="-";
+      
+      
+      newLi.appendChild(nameInput);
+      newLi.appendChild(spaceNode1);
+      newLi.appendChild(priceInput);
+      newLi.appendChild(unitNode);
+      newLi.appendChild(unitSelect);
+      newLi.appendChild(spaceNode2);
+      newLi.appendChild(minusButton);
+      this._ul.appendChild(newLi);
+      
+      minusButton.addEventListener('click', function() {
+        newLi.remove();
       });
     });
 
@@ -76,146 +107,64 @@ class EditPage {
   get title() {
     return "Profil";
   }
+  
+  processInput() {
+    console.log("edit form submit");
+    let name = this._name.value.trim();
+    let streetNumber = this._streetNumber.value.trim();
+    let postcodeTown = this._postcodeTown.value.trim();
+    let phone = this._phone.value.trim();
+    let openHours = this._openHours.value.trim();
+    let products = [];
 
-// [todo]
-  popupMethode(){
-    let fullName = document.querySelector("#main-page-edit .full_name").value.trim();
-    let street = document.querySelector("#main-page-edit .street").value.trim();
-    let number = document.querySelector("#main-page-edit .number").value.trim();
-    let city = document.querySelector("#main-page-edit .city").value.trim();
-    let zip = document.querySelector("#main-page-edit .zip").value.trim();
-
-    let produktListe = document.querySelectorAll('#main-page-edit .productname');
-    let productname = [];
-    for(var i=0;i< produktListe.length-1; i++){
-    //alert("Dein AUfruf  " + produktListe[i].value.trim()) ;
-     productname.push(produktListe[i].value.trim());
+    let productElements = this._ul.querySelectorAll(".edit-product");
+    if (productElements != null) {
+      console.log("products found");
+      productElements.forEach((productElement) => {
+        let prodName = productElement.querySelector(".edit-product-name").value.trim();
+        let prodPrice = productElement.querySelector(".edit-product-price").value.trim();
+        let prodUnit = productElement.querySelector(".edit-product-unit").value.trim();
+        let product = {
+          name: prodName,
+          price: prodPrice,
+          unit: prodUnit
+        };
+        products.push(product);
+      });
+    }
+    
+    console.log("products:", products);
+    
+    this._dataset.name = name;
+    this._dataset.streetNumber = streetNumber;
+    this._dataset.postcodeTown = postcodeTown;
+    this._dataset.phone = phone;
+    this._dataset.openHours = openHours;
+    this._dataset.products = products;
+    this.getCoordinates(streetNumber + ", " + postcodeTown);
   }
-  let preisListe = document.querySelectorAll('#main-page-edit .price');
-  let price = [];
-  for(var i=0;i< preisListe.length-1; i++){
-  price.push(preisListe[i].value.trim());
-  }
-    let open = document.querySelector("#main-page-edit .open").value.trim();
-    let phone = document.querySelector("#main-page-edit .phone").value.trim();
-    let email = document.querySelector("#main-page-edit .email").value.trim();
-
-    if (fullName === "") {
-        alert("1. Geben Sie erst einen Vor und Nachnamen ein.");
-        document.getElementById("1").style.borderColor = "red";
-        return;
-    }
-    else{
-        document.getElementById("1").style.borderColor = "";
-    }
-    if (street === "") {
-        alert("3. Geben Sie erst eine Straße ein.");
-        document.getElementById("3").style.borderColor = "red";
-        return;
-    }
-    else{
-        document.getElementById("3").style.borderColor = "";
-    }
-    if (number === "") {
-        alert("4. Geben Sie erst eine Hausnummer ein.");
-        document.getElementById("4").style.borderColor = "red";
-        return;
-    }
-    else{
-        document.getElementById("4").style.borderColor = "";
-    }
-    if (city === "") {
-        alert("5. Geben Sie erst eine Stadt ein.");
-        document.getElementById("5").style.borderColor = "red";
-        return;
-    }
-    else{
-        document.getElementById("5").style.borderColor = "";
-    }
-    if (zip === "") {
-        alert("6. Geben Sie erst eine Postleitzahl ein.");
-        document.getElementById("6").style.borderColor = "red";
-        return;
-    }
-    else{
-        document.getElementById("6").style.borderColor = "";
-    }
-
-    if (produktListe === "") {
-        alert("10. Geben Sie erst einen Produktnamen ein.");
-        document.getElementById("10").style.borderColor = "red";
-        return;
-      }
-      else{
-          document.getElementById("10").style.borderColor = "";
-      }
-    if (open === "") {
-            alert("7. Geben Sie eine gültige Öfnungszeit.");
-            document.getElementById("7").style.borderColor = "red";
-            return;
-          }
-          else{
-              document.getElementById("7").style.borderColor = "";
-          }
-    if (phone === "") {
-              alert("8. Geben Sie erst eine gültige Nummer.");
-              document.getElementById("8").style.borderColor = "red";
-              return;
-            }
-            else{
-                document.getElementById("8").style.borderColor = "";
-            }
-    if (email === "") {
-                alert("9. Geben Sie eine gültige E-Mail.");
-                document.getElementById("9").style.borderColor = "red";
-                return;
-              }
-              else{
-                  document.getElementById("9").style.borderColor = "";
-              }
-    if (preisListe === "") {
-                alert("11. Geben Sie eine gültigen Preis.");
-                document.getElementById("11").style.borderColor = "red";
-                return;
-                        }
-                        else{
-                            document.getElementById("11").style.borderColor = "";
-                        }
-              //setCoordinates();
-              this._dataset.full_name = fullName;
-              this._dataset.street = street;
-              this._dataset.number = number;
-              this._dataset.city = city;
-              this._dataset.zip = zip;
-              this._dataset.productname = productname;
-              this._dataset.price = price;
-              this._dataset.open = open;
-              this._dataset.phone = phone;
-              this._dataset.email = email;
-
-  }
-
-
-}
-
-function noInput(){
-    document.getElementById("search_product").style.borderColor = "red";
-    document.getElementById("search_place").style.borderColor = "red";
-}
-
-function setCoordinates(datensatz){
-
-    let place = datensatz.adresse.getValue();
-
+  
+  getCoordinates(place){
     let request = new XMLHttpRequest();
     let url = 'https://nominatim.openstreetmap.org/search?q='+ place + '&format=json';
     request.open('GET', url, true);
-
-    request.onload = function() {
-        let data = JSON.parse(this.response);
-        datensatz.lat = parseFloat(data[0].lat);
-        datensatz.lon = parseFloat(data[0].lon);
+    
+    request.onload = () => {
+        console.log("geo data:", request.response);
+        let data = JSON.parse(request.response);
+        this.coordinateCallback(parseFloat(data[0].lat), parseFloat(data[0].lon));
     }
+    
+    request.send();
+  }
+  
+  coordinateCallback(lat, lon) {
+    this._dataset.lat = lat;
+    this._dataset.lon = lon;
+    this._app._db.updateProfile(this._app._loggedInUser.uid, this._dataset);
+    console.log(this._dataset);
+  }
+
 }
 
 export default EditPage;

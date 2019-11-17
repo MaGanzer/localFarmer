@@ -96,26 +96,32 @@
       <article>
         <h1 class="heading">Profil bearbeiten</h1>
         <form id="edit-form">
-          <ul>
+          <ul id="edit-ul">
             <li>
-              <input placeholder="Name" />
+              <input id="edit-name" placeholder="Name" required="" /> *
             </li>
             <li>
-              <input placeholder="Straße und Hausnummer" />
+              <input id="edit-street-number" placeholder="Straße und Hausnummer" required="" /> *
             </li>
             <li>
-              <input placeholder="PLZ und Ort" />
+              <input id="edit-postcode-town" placeholder="PLZ und Ort" required="" /> *
             </li>
             <li>
-              <input placeholder="Öffnungszeiten" />
+              <input id="edit-phone" placeholder="Telefonnummer" />
             </li>
             <li>
-              <input placeholder="Telefonnummer" />
+              <input id="edit-open-hours" placeholder="Öffnungszeiten" />
             </li>
-            <li id="duplicate">
-              <input placeholder="Produkt" id="10" />
-              <input placeholder="Preis/kg" id="11" />
-              <button type="button" id="plus">☩</button>
+            <li class="edit-product">
+              <input class="edit-product-name" placeholder="Produkt" />
+              <input class="edit-product-price" placeholder="Preis" />
+              € /
+              <select class="edit-product-unit">
+                <option selected="selected">kg</option>
+                <option>100 g</option>
+                <option>Stück</option>
+              </select>
+              <button type="button" id="plus">+</button>
             </li>
           </ul>
           <button>Daten speichern</button>
@@ -144,7 +150,7 @@
   <section id="register-page" class="hidden">
     <main>
       <article>
-        <h1>Registrierung</h1>
+        <h1 class="heading">Registrierung</h1>
         <form id="register-form">
           <input type="email" id="register-email" required="" />
           <label for="register-email">E-Mail-Adresse</label><br />
