@@ -7,8 +7,8 @@ Ein einzigartiges Merkmal unserer Website ist, dass es zusätzlich zu den Merkma
 
 ## Verwendung
 * Um auf den Inhalt der Webseite zugreifen zu können, muss zunächst das Programm Node.js gemeinsam mit npm installiert werden.
-* Zum Öffnen der Seite wird der Befehl "npm run start" im Projektpfad in einem Kommandozeilen-Fenster eingegeben. Dadurch wird der Inhalt der Anwendung geladen, ein lokaler Webserver gestartet und im Browser ein Tab mit der Startseite angezeigt.
-* Die Anwendung kann mittels "npm run build" erzeugt und die so erstellten Dateien beispielsweise auf einen Webserver kopiert werden.
+* Zum Öffnen der Seite wird der Befehl `npm run start` im Projektpfad in einem Kommandozeilen-Fenster eingegeben. Dadurch wird der Inhalt der Anwendung geladen, ein lokaler Webserver gestartet und im Browser ein Tab mit der Startseite angezeigt.
+* Die Anwendung kann mittels `npm run build` erzeugt und die so erstellten Dateien beispielsweise auf einen Webserver kopiert werden.
 
 ## Testfälle
 In der Website ist eine Suchfunktion nach Orten und nach Produkten hinterlegt. Um diese testen zu können, sind bereits Beispieldatensätze hinterlegt.
