@@ -174,12 +174,14 @@ function search(){
     console.log(place);
 
     if (place != "" && product != ""){
-       // searchBoth(product, place);
-        searchPlace(place);
-        searchProduct(product);
+        document.getElementById("search_product").style.borderColor = "red";
+        document.getElementById("search_place").style.borderColor = "red";
+       alert("Sie können nur nach Orten oder Produkten getrennt suchen, \nbitte verwenden Sie zuerst die Orst- und dann die Produktsuche");
     }else if(place != ""){
+        console.log("search place")
         searchPlace(place);
     } else if(product != ""){
+        console.log("search product")
         searchProduct(product);
     }else{
         noInput();
@@ -225,13 +227,16 @@ function searchProduct(product){
     console.log(product);
 
     deleteProfiles();
+    let check = false;
 
     _allQuery.then(function(querySnapshot){
         querySnapshot.forEach(function(doc){
             if (typeof doc.data().produce !== "undefined") {
                 doc.data().produce.forEach(function (element) {
+                    console.log("Produkte", element.name, product);
                     if (element.name == product){
                         setDiv(doc.id, doc.data());
+                        check = true;
                     }
                 })
             }
@@ -240,6 +245,10 @@ function searchProduct(product){
         .catch(function(error) {
             console.log("Error getting Products: " , error);
         });
+
+    if(check == false){
+        alert("kein Suchergebnis gefunden, bitte starten sie die Suche erneut");
+    }
 }
 
 function searchBoth(product, place){
@@ -273,7 +282,7 @@ function getDistance(lon1, lat1,){
 
 function setDiv(id, daten){
     let distance = getDistance(daten.lon, daten.lat);
-    console.log(distance);
+    console.log(daten.name, "distanz: ", distance);
     if (distance <=  50){                                       //zeigt nur Datensätze an die näher als 50 km zum Kartenmittelpunkt sind
         let child = document.createElement("div");
         let parent = document.getElementById("liste");
