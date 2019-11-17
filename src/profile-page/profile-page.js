@@ -86,18 +86,20 @@ class ProfilePage {
     addressSpan.textContent = _profile.address;
     phoneSpan.textContent = _profile.phone;
     openHoursSpan.textContent = _profile.openHours;
-    _profile.produce.forEach(prod => {
-      let row = document.createElement("tr");
-      row.classList.add("produce-row");
-      let namecol = document.createElement("td");
-      let pricecol = document.createElement("td");
-      namecol.textContent = prod.name;
-      pricecol.textContent = _currencyFormat.format(prod.price / 100);
-      row.appendChild(namecol);
-      row.appendChild(pricecol);
-      _produceTable.appendChild(row);
-      console.log(prod);
-    });
+    if (typeof(_profile.produce) != "undefined") {
+      _profile.produce.forEach(prod => {
+        let row = document.createElement("tr");
+        row.classList.add("produce-row");
+        let namecol = document.createElement("td");
+        let pricecol = document.createElement("td");
+        namecol.textContent = prod.name;
+        pricecol.textContent = _currencyFormat.format(prod.price / 100);
+        row.appendChild(namecol);
+        row.appendChild(pricecol);
+        _produceTable.appendChild(row);
+        console.log(prod);
+      });
+    }
     console.log("profile page output updated");
   }
 }
