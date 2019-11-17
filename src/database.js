@@ -16,7 +16,8 @@ const _firebaseConfig = {
 
 const _defaultProfile = {
   name: "",
-  address: "",
+  streetNumber: "",
+  postcodeTown: "",
   lat: 0.0,
   lon: 0.0,
   openHours: "",
@@ -64,6 +65,11 @@ class DB {
   getProfile(id)
   {
     return _db.collection("profiles").doc(id).get();
+  }
+  
+  updateProfile(id, data)
+  {
+    return _db.collection("profiles").doc(id).update(data);
   }
 
   deleteProfile(id)

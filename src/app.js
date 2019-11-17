@@ -23,6 +23,7 @@ class App {
     this._currentUrl = "";
     this._navAborted = false;
     this._db = new DB();
+    this._loggedInUser = null;
 
     this._router.on({
       "/":                    () => this.showStartPage(),
@@ -79,7 +80,8 @@ class App {
     
     // auth change listener
     this._db.authChangeListener(user => {
-      this.updateMenuItems(user);
+      this._loggedInUser = user;
+      this.updateMenuItems();
       if (user) {
         app._db.createProfileIfNotExists(user.uid);
       }
@@ -179,8 +181,8 @@ class App {
   }
   
   // dynamically update the header menu based on the logged in user
-  updateMenuItems(user) {
-    if (user == null) {
+  updateMenuItems() {
+    if (this._loggedInUser == null) {
       this._loginElements.forEach(element => {
         element.classList.add("hidden");
       });

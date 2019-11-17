@@ -18,6 +18,10 @@ body {
   display: none !important;
 }
 
+.invisible {
+  visibility: hidden !important;
+}
+
 .padding {
   padding: 0.5rem;
 }
