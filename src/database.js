@@ -66,6 +66,10 @@ class DB {
   {
     return _db.collection("profiles").doc(id).get();
   }
+
+ /* getProductProfile(product){
+    return _db.collection("profiles").where(,"array-contains", product)
+  }*/
   
   updateProfile(id, data)
   {
