@@ -40,7 +40,7 @@ class EditPage {
     this._postcodeTown = this._ul.querySelector("#edit-postcode-town");
     this._phone = this._ul.querySelector("#edit-phone");
     this._openHours = this._ul.querySelector("#edit-open-hours");
-    this._products = [];
+    this._plusButton = document.querySelector("#edit-plus-button");
     
     const editForm = document.querySelector("#edit-form");
     editForm.addEventListener("submit", (evt) => {
@@ -48,53 +48,14 @@ class EditPage {
       this.processInput();
     });
 
-    document.getElementById("plus").addEventListener('click', () => {
-      let newLi = document.createElement("li");
-      newLi.classList.add("edit-product");
-      
-      let nameInput = document.createElement("input");
-      nameInput.classList.add("edit-product-name");
-      nameInput.placeholder = "Bezeichnung";
-      
-      let spaceNode1 = document.createTextNode(" ");
-      
-      let priceInput = document.createElement("input");
-      priceInput.placeholder = "Preis";
-      priceInput.classList.add("edit-product-price");
-      
-      let unitNode = document.createTextNode(" € / ");
-      
-      let unitOptionKg = document.createElement("option");
-      unitOptionKg.text = "kg";
-      let unitOption100g = document.createElement("option");
-      unitOption100g.text = "100 g";
-      let unitOptionPiece = document.createElement("option");
-      unitOptionPiece.text = "Stück";
-      
-      let unitSelect = document.createElement("select");
-      unitSelect.classList.add("edit-product-unit");
-      unitSelect.appendChild(unitOptionKg);
-      unitSelect.appendChild(unitOption100g);
-      unitSelect.appendChild(unitOptionPiece);
-      
-      let spaceNode2 = document.createTextNode(" ");
-
-      let minusButton = document.createElement("button");
-      minusButton.innerHTML="-";
-      
-      
-      newLi.appendChild(nameInput);
-      newLi.appendChild(spaceNode1);
-      newLi.appendChild(priceInput);
-      newLi.appendChild(unitNode);
-      newLi.appendChild(unitSelect);
-      newLi.appendChild(spaceNode2);
-      newLi.appendChild(minusButton);
-      this._ul.appendChild(newLi);
-      
-      minusButton.addEventListener('click', function() {
-        newLi.remove();
-      });
+    this._plusButton.addEventListener('click', () => {
+      this.addProductRow();
+    });
+    
+    let firstProduct = this._ul.querySelectorAll(".edit-product")[0];
+    let firstMinus = firstProduct.querySelector(".minus-button");
+    firstMinus.addEventListener('click', () => {
+      this.removeProductRow(firstProduct);
     });
 
     console.log('Page loaded');
@@ -164,7 +125,79 @@ class EditPage {
     this._app._db.updateProfile(this._app._loggedInUser.uid, this._dataset);
     console.log(this._dataset);
   }
+  
+  addProductRow() {
+    let newLi = document.createElement("li");
+    newLi.classList.add("edit-product");
+    
+    let nameInput = document.createElement("input");
+    nameInput.classList.add("edit-product-name");
+    nameInput.placeholder = "Bezeichnung";
+    
+    let spaceNode1 = document.createTextNode(" ");
+    
+    let priceInput = document.createElement("input");
+    priceInput.placeholder = "Preis";
+    priceInput.classList.add("edit-product-price");
+    priceInput.size = 3;
+    
+    let unitNode = document.createTextNode(" € / ");
+    
+    let unitOptionKg = document.createElement("option");
+    unitOptionKg.text = "kg";
+    let unitOption100g = document.createElement("option");
+    unitOption100g.text = "100 g";
+    let unitOptionPiece = document.createElement("option");
+    unitOptionPiece.text = "Stück";
+    
+    let unitSelect = document.createElement("select");
+    unitSelect.classList.add("edit-product-unit");
+    unitSelect.appendChild(unitOptionKg);
+    unitSelect.appendChild(unitOption100g);
+    unitSelect.appendChild(unitOptionPiece);
+    
+    let spaceNode2 = document.createTextNode(" ");
 
+    let minusButton = document.createElement("button");
+    minusButton.classList.add("minus-button");
+    minusButton.type = "button";
+    minusButton.innerHTML="-";
+    
+    
+    newLi.appendChild(nameInput);
+    newLi.appendChild(spaceNode1);
+    newLi.appendChild(priceInput);
+    newLi.appendChild(unitNode);
+    newLi.appendChild(unitSelect);
+    newLi.appendChild(spaceNode2);
+    newLi.appendChild(minusButton);
+    this._ul.appendChild(newLi);
+    this._ul.querySelectorAll(".edit-product:last-child")[0].after(this._plusButton);
+    
+    minusButton.addEventListener('click', () => {
+      this.removeProductRow(newLi);
+    });
+    
+    this.updateMinuses();
+  }
+  
+  removeProductRow(row) {
+    row.remove();
+    this.updateMinuses();
+  }
+  
+  updateMinuses() {
+    let products = this._ul.querySelectorAll(".edit-product");
+    if (products.length == 1) {
+      products[0].querySelector(".minus-button").classList.add("invisible");
+    } else {
+      products.forEach((product) => {
+        product.querySelector(".minus-button").classList.remove("invisible");
+      });
+    }
+  }
 }
+
+
 
 export default EditPage;

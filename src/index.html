@@ -113,15 +113,18 @@
               <input id="edit-open-hours" placeholder="Öffnungszeiten" />
             </li>
             <li class="edit-product">
-              <input class="edit-product-name" placeholder="Produkt" />
-              <input class="edit-product-price" placeholder="Preis" />
+              <input class="edit-product-name" placeholder="Bezeichnung" />
+              <input class="edit-product-price" placeholder="Preis" size="3" />
               € /
               <select class="edit-product-unit">
                 <option selected="selected">kg</option>
                 <option>100 g</option>
                 <option>Stück</option>
               </select>
-              <button type="button" id="plus">+</button>
+              <button type="button" class="minus-button invisible">-</button>
+            </li>
+            <li id="edit-plus-button">
+              <button type="button">+</button> weiteres Produkt hinzufügen
             </li>
           </ul>
           <button>Daten speichern</button>
