@@ -3,17 +3,17 @@
   list-style: none;
 }
 
-.edit-page #edit-form .edit-product-price {
+.edit-page #edit-form .edit-produce-price {
   width: 3em;
 }
 
-.edit-page #edit-form .edit-product-price {
+.edit-page #edit-form .edit-produce-price {
   appearance: textfield;
   -moz-appearance: textfield;
 }
 
-.edit-page #edit-form .edit-product-price::-webkit-inner-spin-button, 
-.edit-page #edit-form .edit-product-price::-webkit-outer-spin-button { 
+.edit-page #edit-form .edit-produce-price::-webkit-inner-spin-button, 
+.edit-page #edit-form .edit-produce-price::-webkit-outer-spin-button { 
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;

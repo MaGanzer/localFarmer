@@ -6,7 +6,7 @@ let _app;
 let _db;
 let _uid;
 let _profile;
-let _productsTable;
+let _produceTable;
 let _currencyFormat = Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });
 
 class ProfilePage {
@@ -15,6 +15,7 @@ class ProfilePage {
     _app = this._app;
     _db = app._db;
     _uid = uid;
+    _profile = null;
     this._domLoaded = false;
     this._profileUpdated = false;
     
@@ -45,12 +46,12 @@ class ProfilePage {
   }
 
   onLoad() {
-    _productsTable = document.querySelector("#profile-products-table");
-    _productsTable.querySelectorAll("#profile-products-table > .profile-products-row").forEach(element => {
+    _produceTable = document.querySelector("#profile-produce-table");
+    _produceTable.querySelectorAll("#profile-produce-table > .profile-produce-row").forEach(element => {
       element.parentNode.removeChild(element);
     });
     this._domLoaded = true;
-    if (typeof _profile !== 'undefined') {
+    if (typeof _profile !== 'undefined' && _profile != null) {
       // profile data has already been loaded; update the page output
       this.updatePageOutput();
     }
@@ -78,7 +79,13 @@ class ProfilePage {
     let phoneSpan = document.querySelector('#profile-phone');
     let openHoursLi = document.querySelector('#profile-open-hours-li');
     let openHoursSpan = document.querySelector('#profile-open-hours');
-    let noProductsSpan = document.querySelector('#profile-no-products');
+    let noProduceSpan = document.querySelector('#profile-no-produce');
+    
+    let home = document.querySelector('#profile-home');
+    home.addEventListener("click", (evt) => {
+      evt.preventDefault();
+      this._app._router.navigate("/");
+    });
     
     if (typeof _profile.name !== 'undefined' && _profile.name != "") {
       document.title = `${_app._title} - Profil von ${_profile.name}`;
@@ -97,26 +104,24 @@ class ProfilePage {
       openHoursSpan.textContent = _profile.openHours;
     }
     openHoursSpan.textContent = _profile.openHours;
-    if (typeof(_profile.products) != "undefined" && _profile.products.length > 0) {
-      console.log("products");
-      _profile.products.forEach(prod => {
+    if (typeof(_profile.produce) != "undefined" && _profile.produce.length > 0) {
+      _profile.produce.forEach(prod => {
         let row = document.createElement("tr");
-        row.classList.add("profile-products-row");
+        row.classList.add("profile-produce-row");
         let namecol = document.createElement("td");
         let pricecol = document.createElement("td");
         namecol.textContent = prod.name;
         pricecol.textContent = _currencyFormat.format(prod.price / 100) + " / " + prod.unit;
         row.appendChild(namecol);
         row.appendChild(pricecol);
-        _productsTable.appendChild(row);
+        _produceTable.appendChild(row);
         console.log(prod);
       });
-      _productsTable.classList.remove("hidden");
-      noProductsSpan.classList.add("hidden");
+      _produceTable.classList.remove("hidden");
+      noProduceSpan.classList.add("hidden");
     } else {
-      console.log("no products", _profile.products.length);
-      _productsTable.classList.add("hidden");
-      noProductsSpan.classList.remove("hidden");
+      _produceTable.classList.add("hidden");
+      noProduceSpan.classList.remove("hidden");
     }
     console.log("profile page output updated");
   }

@@ -59,14 +59,9 @@
   <section id="profile-page" class="hidden">
     <main>
       <article>
-        <h1 class="heading">Profil</h1>
+        <a id="profile-home" href="/">zurück zur Startseite</a>
+        <h1 id="profile-name" class="heading">Profil</h1>
         <ul>
-          <li>
-            <span id="profile-name"></span>
-          </li>
-            &nbsp;
-          <li>
-          </li>
           <li>
             <span id="profile-street-number"></span>
           </li>
@@ -86,13 +81,13 @@
             &nbsp;
           </li>
           <li>
-            <table id="profile-products-table" class="hidden">
+            <table id="profile-produce-table" class="hidden">
               <tr>
                 <th>Produktname</th>
                 <th>Preis</th>
               </tr>
             </table>
-            <span id="profile-no-products" class="hidden">Dieser Landwirt bietet derzeit keine Produkte an.</span>
+            <span id="profile-no-produce" class="hidden">Dieser Landwirt bietet derzeit keine Produkte an.</span>
           </li>
         </ul>
       </article>
@@ -103,6 +98,7 @@
   <section id="edit-page" class="hidden">
     <main>
       <article>
+        <a id="edit-home" href="/">zurück zur Startseite</a>
         <h1 class="heading">Profil bearbeiten</h1>
         <form id="edit-form">
           <ul id="edit-ul">
@@ -130,13 +126,14 @@
             <li>
               Angebotene Produkte:
             </li>
-            <li class="edit-product">
-              <input type="text" class="edit-product-name" placeholder="Bezeichnung" />
-              <input type="number" class="edit-product-price" placeholder="Preis" min="0" step="any" />
+            <li class="edit-produce">
+              <input type="text" class="edit-produce-name" placeholder="Bezeichnung" />
+              <input type="number" class="edit-produce-price" placeholder="Preis" min="0" step="any" />
               € /
-              <select class="edit-product-unit">
-                <option selected="selected">kg</option>
+              <select class="edit-produce-unit">
+                <option>kg</option>
                 <option>100 g</option>
+                <option>l</option>
                 <option>Stück</option>
               </select>
               <button type="button" class="minus-button invisible">-</button>
@@ -155,6 +152,7 @@
   <section id="login-page" class="hidden">
     <main>
       <article>
+        <a id="login-home" href="/">zurück zur Startseite</a>
         <h1 class="heading">Login</h1>
         <form id="login-form">
           <input type="email" id="login-email" required="" />
@@ -171,6 +169,7 @@
   <section id="register-page" class="hidden">
     <main>
       <article>
+        <a id="register-home" href="/">zurück zur Startseite</a>
         <h1 class="heading">Registrierung</h1>
         <form id="register-form">
           <input type="email" id="register-email" required="" />
@@ -180,22 +179,6 @@
           <button>Registrieren</button>
         </form>
       </article>
-    </main>
-  </section>
-
-  <!-- Section der Datenbank-Testseite (nur zu Entwicklungszwecken gedacht) -->
-  <section id="dbtest-page" class="hidden">
-    <main>
-      <fieldset>
-        <legend>Speichern:</legend>
-        Gib hier was ein: <input type="text" id="DBTest_text" />
-        Drück dann hier drauf: <button type="button" id="DBTest_speichern">Testdaten speichern</button>
-      </fieldset>
-      <fieldset>
-        <legend>Laden:</legend>
-        Gib die ID ein: <input type="text" id="DBTest_id" />
-        Drück dann hier drauf: <button type="button" id="DBTest_laden">Testdaten laden</button> oder <button type="button" id="DBTest_loeschen">Testdaten löschen</button>
-      </fieldset>
     </main>
   </section>
 </body>

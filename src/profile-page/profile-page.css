@@ -7,11 +7,11 @@
   font-weight: bold;
 }
 
-.profile-page #profile-products-table {
+.profile-page #profile-produce-table {
   border-collapse: collapse;
 }
 
-.profile-page #profile-products-table th,td {
+.profile-page #profile-produce-table th,td {
   border-style: solid;
   border-width: 1px;
 }
