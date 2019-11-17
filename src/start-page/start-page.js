@@ -86,16 +86,16 @@ function initMap(){
     _layer_mapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
     _map.addLayers([_layer_mapnik, _layer_markers]);
 
-    let allQuery = _db.getAllDB();
-        querySnapshot.forEach(function(doc){
+    _allQuery.then(function(querySnapshot){
+        querySnapshot.forEach(function(doc) {
             console.log(doc.id, "=>", doc.data());
-            addMarker(doc.data().lon, doc.data().lat);
-            setDiv(doc.data());
-        });
-    })
+            addMarker(_layer_markers, doc.data().lon, doc.data().lat);
+            setDiv(doc.data())
+        })
         .catch(function(error) {
             console.log("Error getting documents: ", error);
-        });
+        })
+    });
 
     /*_allQuery
         querySnapshot.forEach(function(doc){
@@ -109,7 +109,6 @@ function initMap(){
         });*/
 
     jumpTo(zoom);
-
 }
 
 function jumpTo(zoom) {
@@ -129,7 +128,7 @@ function Lat2Merc(lat) {
     return 20037508.34 * lat_neu / 180;
 }
 
-function addMarker( lon, lat) {
+function addMarker(lon, lat) {
     console.log(lon, lat);
     let lonLat = new OpenLayers.LonLat(Lon2Merc(lon), Lat2Merc(lat));
     _layer_markers.addMarker(new OpenLayers.Marker(lonLat));

@@ -30,13 +30,8 @@ let _auth;
 class DB {
   constructor() {
     firebase.initializeApp(_firebaseConfig);
-<<<<<<< HEAD
     _db = firebase.firestore();
     _auth = firebase.auth();
-=======
-    this._db = firebase.firestore();
-    this._auth = firebase.auth();
->>>>>>> 7438d03c3dc581267be3eb6da3319ffda365694d
   }
 
   // ----- database functions: test collection -----
@@ -98,23 +93,6 @@ class DB {
   
   loginUser(email, password) {
     return _auth.signInWithEmailAndPassword(email, password);
-  }
-  
-  logoutUser() {
-<<<<<<< HEAD
-    return _auth.signOut();
-=======
-    return this._auth.signOut();
-  }
-
-  //db richtige Datenbank
-  addDB(testData)
-  {
-    return this._db.collection("db").add(testData);
-  }
-
-  getAllDB()
-  {
     // let dataRef = this._db.collection("db");
     // dataRef.get()
     //        .then(function(querySnapshot){
@@ -126,23 +104,23 @@ class DB {
     //          console.log("Error getting documents: ", error);
     //        });
     // return dataRef.get();
-    return this._db.collection("db").get();
   }
-
-  getDB(id)
-  {
-    return this._db.collection("db").doc(id).get();
->>>>>>> 7438d03c3dc581267be3eb6da3319ffda365694d
+  
+  logoutUser() {
+    return _auth.signOut();
   }
   
   authChangeListener(f)
   {
     return _auth.onAuthStateChanged(f);
-  }
 <<<<<<< HEAD
-
+  }
+  //bitte nicht löschen
+  getAllDB() {
+    return _db.collection("db").get();
 =======
->>>>>>> 7438d03c3dc581267be3eb6da3319ffda365694d
+>>>>>>> 6dec4ba37b73d7bf8296614bc6e5eade18e5ba3e
+  }
 }
 
 export default DB;
