@@ -14,12 +14,12 @@
   <section id="app">
     <header>
         <div>&nbsp;</div>
-        <h1><a href="/" id="startLink">Local Farmer</a></h1>
+        <h1><a href="/" id="home-link">Local Farmer</a></h1>
         <ul>
-            <li class="rechts require-logout hidden"><a href="/login" id="loginLink">Einloggen</a></li>
-            <li class="rechts require-logout hidden"><a href="/register" id="registerLink">Registrieren</a></li>
-            <li class="rechts require-login hidden"><a href="/angebot" id="angebotLink">Profil bearbeiten</a></li>
-            <li class="rechts require-login hidden"><a href="" id="logoutLink">Abmelden</a></li>
+            <li class="rechts require-logout hidden"><a href="/login" id="login-link">Einloggen</a></li>
+            <li class="rechts require-logout hidden"><a href="/register" id="register-link">Registrieren</a></li>
+            <li class="rechts require-login hidden"><a href="/edit" id="edit-link">Profil bearbeiten</a></li>
+            <li class="rechts require-login hidden"><a href="" id="logout-link">Abmelden</a></li>
         </ul>
     </header>
     <main>
@@ -33,130 +33,126 @@
   <!-- Section für die Startseite mit Karte und Übersicht der angezeigten Farmer -->
   <section id="start-page" class="hidden">
     <main>
-      <div id="suchleiste">
-          <input class="suche" id="search_product" placeholder="Produkt">
-          <input class="suche" id="search_place" placeholder="Ort">
-          <button class="suche" id="search">Suchen</button>
-      </div>
-      <div id="karte">
-      </div>
-      <div id="lizenz">
-          © <a href="https://www.openstreetmap.org">OpenStreetMap</a>
-          und <a href="https://www.openstreetmap.org/copyright">Mitwirkende</a>,
-          <a href="https://creativecommons.org/licenses/by-sa/2.0/deed.de">CC-BY-SA</a>
-      </div>
-      <ul>
-        <div id="liste">
-<!--          <div class="profil" >-->
-<!--              <img src="image_01.jfif">-->
-<!--              <h2>Gabriela Schreieck</h2>-->
-<!--              <h3>Mühlburg</h3>-->
-<!--              <output>distance</output>-->
-<!--          </div>-->
-        </ul>
-      </div>
+      <article>
+        <div id="suchleiste">
+            <input class="suche" id="search_product" placeholder="Produkt">
+            <input class="suche" id="search_place" placeholder="Ort">
+            <button class="suche" id="search">Suchen</button>
+        </div>
+        <div id="karte">
+        </div>
+        <div id="lizenz">
+            © <a href="https://www.openstreetmap.org">OpenStreetMap</a>
+            und <a href="https://www.openstreetmap.org/copyright">Mitwirkende</a>,
+            <a href="https://creativecommons.org/licenses/by-sa/2.0/deed.de">CC-BY-SA</a>
+        </div>
+        <ul>
+          <div id="liste">
+<!--            <div class="profil" >-->
+<!--                <img src="image_01.jfif">-->
+<!--                <h2>Gabriela Schreieck</h2>-->
+<!--                <h3>Mühlburg</h3>-->
+<!--                <output>distance</output>-->
+<!--            </div>-->
+          </ul>
+        </div>
+      </article>
     </main>
   </section>
 
   <!-- Section der Detailsicht -->
   <section id="profile-page" class="hidden">
     <main>
-      <div class="actions">
-        <button id="BackToStart">Zurück zur Startseite</button>
-      </div>
-      <div>
-        Name: <span id="name"></span>
-      </div>
-      <div>
-        Adresse: <span id="address"></span>
-      </div>
-      <div>
-        Telefon: <span id="phone"></span>
-      </div>
-      <div>
-        Öffnungszeiten: <span id="openHours"></span>
-      </div>
-      <div>
-        Angebotene Produkte:
-        <table id="produce-table">
-          <tr>
-            <th>Produktname</th>
-            <th>Preis pro 100 Gramm</th>
-          </tr>
-        </table>
-      </div>
+      <article>
+        <h1 class="heading">Profil bearbeiten</h1>
+        <div>
+          Name: <span id="name"></span>
+        </div>
+        <div>
+          Adresse: <span id="address"></span>
+        </div>
+        <div>
+          Telefon: <span id="phone"></span>
+        </div>
+        <div>
+          Öffnungszeiten: <span id="openHours"></span>
+        </div>
+        <div>
+          Angebotene Produkte:
+          <table id="produce-table">
+            <tr>
+              <th>Produktname</th>
+              <th>Preis pro 100 Gramm</th>
+            </tr>
+          </table>
+        </div>
+      </article>
     </main>
   </section>
 
   <!-- Section der Angebotsseite -->
-  <section id="angebot-page" class="hidden">
-  <main>
-      <div>
-         <div class="form" id="main-page-edit">
-           <ul>
-              <input class="full_name" placeholder="1. Name" id="1" />
-           </ul>
-           <ul>
-              <input class="street" placeholder="3. Straße" id="3"/>
-           </ul>
-           <ul>
-              <input class="number" placeholder="4. Hausnummer"id="4" />
-            </ul>
-            <ul>
-              <input class="city" placeholder="5. Wohnort" id="5"/>
-            </ul>
-            <ul>
-              <input class="zip" placeholder="6. PLZ" id="6" />
-            </ul>
-            <ul>
-              <input class="open" placeholder="7. Offnungszeit" id="7"/>
-            </ul>
-            <ul>
-              <input class="phone" placeholder="8. Telefonnummer"  id="8"/>
-            </ul>
-            <ul>
-              <input class="email" placeholder="9. E-Mailadresse" id="9"/>
-            </ul>
-            <ul id="duplicate">
-              <input class="productname" placeholder="10. Produkt" id="10"/>
-              <input class="price" placeholder="11. Preis/kg" id="11" />
-              <button id="plus">☩</button>
-            </ul>
-          </div>
-          <div class="actions">
-              <div class="action save">
-                  <a id="SpeicherButton">Daten speichern</a>
-              </div>
-          </div>
-      </div>
+  <section id="edit-page" class="hidden">
+    <main>
+      <article>
+        <h1 class="heading">Profil bearbeiten</h1>
+        <form id="edit-form">
+          <ul>
+            <li>
+              <input placeholder="Name" />
+            </li>
+            <li>
+              <input placeholder="Straße und Hausnummer" />
+            </li>
+            <li>
+              <input placeholder="PLZ und Ort" />
+            </li>
+            <li>
+              <input placeholder="Öffnungszeiten" />
+            </li>
+            <li>
+              <input placeholder="Telefonnummer" />
+            </li>
+            <li id="duplicate">
+              <input placeholder="Produkt" id="10" />
+              <input placeholder="Preis/kg" id="11" />
+              <button type="button" id="plus">☩</button>
+            </li>
+          </ul>
+          <button>Daten speichern</button>
+        </form>
+      </article>
     </main>
   </section>
 
   <!-- Section der Loginseite -->
   <section id="login-page" class="hidden">
     <main>
-      <h1>Login</h1>
-      <form id="loginForm">
-        <input type="email" id="email" required="" />
-        <label for="email">E-Mail-Adresse</label><br />
-        <input type="password" id="password" required="" />
-        <label for="password">Passwort</label><br />
-        <button>Einloggen</button>
-      </form>
+      <article>
+        <h1 class="heading">Login</h1>
+        <form id="login-form">
+          <input type="email" id="login-email" required="" />
+          <label for="login-email">E-Mail-Adresse</label><br />
+          <input type="password" id="login-password" required="" />
+          <label for="login-password">Passwort</label><br />
+          <button>Einloggen</button>
+        </form>
+      </article>
     </main>
   </section>
 
   <!-- Section der Registrierungsseite -->
   <section id="register-page" class="hidden">
     <main>
-      <h1>Registrierung</h1>
-      <form id="registerForm">
-        <input type="email" id="email" required="" />
-        <label for="email">E-Mail-Adresse</label><br />
-        <input type="password" id="password" required="" />
-        <label for="password">Passwort</label><br />
-        <button>Registrieren</button>
-      </form>
+      <article>
+        <h1>Registrierung</h1>
+        <form id="register-form">
+          <input type="email" id="register-email" required="" />
+          <label for="register-email">E-Mail-Adresse</label><br />
+          <input type="password" id="register-password" required="" />
+          <label for="register-password">Passwort</label><br />
+          <button>Registrieren</button>
+        </form>
+      </article>
     </main>
   </section>
 

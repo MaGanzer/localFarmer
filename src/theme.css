@@ -8,5 +8,6 @@ html {
   --header-active-font-color:       rgba(255,255,255, 0.9);
   
   --main-background-color:          #97d3bf;
+  --article-background-color:       #ebfff8;
   --footer-background-color:        #cecece;
 }

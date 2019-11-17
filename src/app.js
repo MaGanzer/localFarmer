@@ -8,7 +8,7 @@ import DB from "./database.js";
 
 import StartPage from "./start-page/start-page.js";
 import ProfilePage from "./profile-page/profile-page.js";
-import AngebotPage from "./angebot-page/angebot-page.js";
+import EditPage from "./edit-page/edit-page.js";
 import LoginPage from "./login-page/login-page.js";
 import RegisterPage from "./register-page/register-page.js";
 import DBTestPage from "./dbtest-page/dbtest-page.js";
@@ -27,7 +27,7 @@ class App {
     this._router.on({
       "/":                    () => this.showStartPage(),
       "/profile/:uid"    :params => this.showProfilePage(params),
-      "/angebot":             () => this.showAngebotPage(),
+      "/edit":                () => this.showEditPage(),
       "/login":               () => this.showLoginPage(),
       "/register":            () => this.showRegisterPage(),
       "/dbtest":              () => this.showDBTestPage()
@@ -54,23 +54,23 @@ class App {
     
     // ----- global page elements (header/footer) -----
     let app = this;
-    document.querySelector("#startLink").addEventListener('click', (evt) => {
+    document.querySelector("#home-link").addEventListener('click', (evt) => {
       evt.preventDefault();
       app._router.navigate("/");
     });
-    document.querySelector("#loginLink").addEventListener('click', (evt) => {
+    document.querySelector("#login-link").addEventListener('click', (evt) => {
       evt.preventDefault();
       app._router.navigate("/login");
     });
-    document.querySelector("#registerLink").addEventListener('click', (evt) => {
+    document.querySelector("#register-link").addEventListener('click', (evt) => {
       evt.preventDefault();
       app._router.navigate("/register");
     });
-    document.querySelector("#angebotLink").addEventListener('click', (evt) => {
+    document.querySelector("#edit-link").addEventListener('click', (evt) => {
       evt.preventDefault();
-      app._router.navigate("/angebot");
+      app._router.navigate("/edit");
     });
-    document.querySelector("#logoutLink").addEventListener('click', (evt) => {
+    document.querySelector("#logout-link").addEventListener('click', (evt) => {
       evt.preventDefault();
       app._db.logoutUser().then((rsp) => {
         // [todo] content hiding; redirection
@@ -101,8 +101,8 @@ class App {
     this._switchVisibleView(view);
   }
 
-  showAngebotPage(){
-    let view = new AngebotPage(this);
+  showEditPage(){
+    let view = new EditPage(this);
     this._switchVisibleView(view);
   }
   

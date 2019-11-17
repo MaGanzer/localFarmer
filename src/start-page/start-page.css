@@ -1,3 +1,9 @@
+.start-page article {
+  background-color: var(--main-background-color) !important;
+  padding: 0 !important;
+  width: 100%;
+}
+
 .start-page #suchleiste{
     background-color: lightgrey;
     width: 100%;

@@ -1,8 +1,8 @@
-#produce-table {
+.profile-page #produce-table {
   border-collapse: collapse;
 }
 
-#produce-table th,td {
+.profile-page #produce-table th,td {
   border-style: solid;
   border-width: 1px;
 }

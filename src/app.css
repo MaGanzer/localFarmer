@@ -62,6 +62,18 @@
   padding-top: 1em;
   background-color: var(--main-background-color);
   flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+}
+
+#app main article {
+  background-color: var(--article-background-color);
+  display: table;
+  padding: 20px;
+}
+
+#app main article .heading {
+  margin-top: 0;
 }
 
 /*

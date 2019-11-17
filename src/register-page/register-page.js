@@ -30,12 +30,12 @@ class RegisterPage {
   }
 
   onLoad() {
-    const regForm = document.querySelector("#registerForm");
+    const regForm = document.querySelector("#register-form");
     var app = this._app;
-    registerForm.addEventListener("submit", (evt) => {
+    regForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      const email = regForm["email"].value;
-      const password = regForm["password"].value;
+      const email = regForm["register-email"].value;
+      const password = regForm["register-password"].value;
       _db.registerUser(email, password).then(cred => {
         regForm.reset();
         app._router.navigate("/");

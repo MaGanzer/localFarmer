@@ -30,12 +30,12 @@ class LoginPage {
   }
 
   onLoad() {
-    const loginForm = document.querySelector("#loginForm");
+    const loginForm = document.querySelector("#login-form");
     var app = this._app;
     loginForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      const email = loginForm["email"].value;
-      const password = loginForm["password"].value;
+      const email = loginForm["login-email"].value;
+      const password = loginForm["login-password"].value;
       _db.loginUser(email, password).then(cred => {
         loginForm.reset();
         app._router.navigate("/");

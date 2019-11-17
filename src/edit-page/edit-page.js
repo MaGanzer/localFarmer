@@ -1,110 +1,72 @@
 "use strict";
 
-import stylesheet from "./angebot-page.css";
+import stylesheet from "./edit-page.css";
 
 
 let _app = "";
 let _db = "";
 
-let _map;
-let _layer_mapnik;
-let _layer_markers;
-let _marker;
-let _lat;
-let _lon;
-
-class AngebotPage {
+class EditPage {
   constructor(app) {
     this._app = app;
     _app = this._app;
     _db = app._db;
 
     this._dataset = {
-        full_name: "",
-        last_name: "",
-        street: "",
-        number: "",
-        city: "",
-        zip: "",
-        productname: [],
-        price: [],
+        name: "",
+        street_number: "",
+        postcode_town: "",
+        products: [],
         open: "",
-        phone: "",
-        email: "",
+        phone: ""
     };
-/*
-    if (this._editIndex > -1) {
-        let dataset = this._app.getDataByIndex(this._editIndex);
-
-        this._dataset.first_name = dataset.first_name;
-        this._dataset.last_name = dataset.last_name;
-        this._dataset.street = dataset.street;
-        this._dataset.street = dataset.number;
-        this._dataset.city = dataset.city;
-        this._dataset.zip = dataset.zip;
-        this._dataset.productname = dataset.productname;
-        this._dataset.quantity = dataset.quantity;
-        this._dataset.price = dataset.price;
-        this._dataset.open = dataset.open;
-        this._dataset.phone = dataset.phone;
-        this._dataset.email = dataset.email;
-    }
-    */
   }
 
   onShow() {
     // Anzuzeigende HTML-Elemente ermitteln
-    let section = document.querySelector("#angebot-page").cloneNode(true);
+    let section = document.querySelector("#edit-page").cloneNode(true);
 
     return {
-        className: "angebot-page",
+        className: "edit-page",
         topbar: section.querySelectorAll("header > *"),
         main: section.querySelectorAll("main > *"),
     };
   }
 
   onLoad() {
-    document.querySelector('#BackToStart').addEventListener('click', function() {
-     _app._router.navigate("/");
-   });
-   var _this=this;
+    const editForm = document.querySelector("#edit-form");
+    var app = this._app;
+    editForm.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      alert("Daten speichern");
+    });
 
-   document.getElementById("SpeicherButton").addEventListener("click", function() {
+    document.getElementById("plus").addEventListener('click', function() {
+      let duplizierbareUl = document.getElementById("duplicate");
+      var newUl = document.createElement("ul");
+      let produktFeld = document.createElement("input");
+      let preisFeld = document.createElement("input");
+      produktFeld.classList.add("productname");
+      preisFeld.classList.add("price");
 
-    _this.popupMethode();
-    _app._router.navigate("/");
-  });
-  document.getElementById("plus").addEventListener('click', function() {
-   let duplizierbareUl = document.getElementById("duplicate");
-   var newUl = document.createElement("ul");
-   let produktFeld = document.createElement("input");
-   let preisFeld = document.createElement("input");
-   produktFeld.classList.add("productname");
-   preisFeld.classList.add("price");
+      produktFeld.placeholder="Produkt";
+      preisFeld.placeholder="Preis";
 
-   produktFeld.placeholder="Produkt";
-   preisFeld.placeholder="Preis";
-
-   produktFeld.id="10";
-   preisFeld.id="11";
-
-   let minus= document.createElement("button");
-   minus.innerHTML="-";
-   minus.id="remove";
-   newUl.appendChild(produktFeld);
-   newUl.appendChild(preisFeld);
-   newUl.appendChild(minus);
-   duplizierbareUl.appendChild(newUl);
-
-   minus.addEventListener('click', function() {
-     newUl.remove();
-  });
-
-
- });
+      produktFeld.id="10";
+      preisFeld.id="11";
+      let minus= document.createElement("button");
+      minus.innerHTML="-";
+      minus.id="remove";
+      newUl.appendChild(produktFeld);
+      newUl.appendChild(preisFeld);
+      newUl.appendChild(minus);
+      duplizierbareUl.appendChild(newUl);
+      minus.addEventListener('click', function() {
+        newUl.remove();
+      });
+    });
 
     console.log('Page loaded');
-
   }
 
   onLeave(goon) {
@@ -115,6 +77,7 @@ class AngebotPage {
     return "Profil";
   }
 
+// [todo]
   popupMethode(){
     let fullName = document.querySelector("#main-page-edit .full_name").value.trim();
     let street = document.querySelector("#main-page-edit .street").value.trim();
@@ -255,4 +218,4 @@ function setCoordinates(datensatz){
     }
 }
 
-export default AngebotPage;
+export default EditPage;
