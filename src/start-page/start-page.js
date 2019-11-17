@@ -86,7 +86,7 @@ function initMap(){
     _layer_mapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
     _map.addLayers([_layer_mapnik, _layer_markers]);
 
-    _allQuery.then(function(querySnapshot){
+    let allQuery = _db.getAllDB();
         querySnapshot.forEach(function(doc){
             console.log(doc.id, "=>", doc.data());
             addMarker(doc.data().lon, doc.data().lat);
