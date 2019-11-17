@@ -88,16 +88,18 @@ function initMap(){
 
     _allQuery.then(function(querySnapshot){
         querySnapshot.forEach(function(doc) {
-            console.log(doc.id, "=>", doc.data());
-            addMarker( doc.data().lon, doc.data().lat);
-            setDiv(doc.data());
+            if (typeof querySnapshot !== "undefined"){
+                console.log(doc.id, "=>", doc.data());
+                addMarker( doc.data().lon, doc.data().lat);
+                setDiv(doc.data());
+            }
+
         })
         .catch(function(error) {
             console.log("Error getting documents: ", error);
         })
     });
 
-    setELProfiles();
     jumpTo(zoom);
 }
 
@@ -108,16 +110,17 @@ function jumpTo(zoom) {
     return false;
 }
 
-function setELProfiles(){
+/*function setELProfiles(){
 
     let profilesArray = document.querySelectorAll(".profil");
+    console.log(profilesArray);
 
     profilesArray.forEach(function(element){
         element.addEventListener('click', function() {
             _app._router.navigate("/profile/B5XVhr9QWJa5T2NvSsAyg46awAg1");
         });
     });
-}
+}*/
 
 function Lon2Merc(lon) {
     return 20037508.34 * lon / 180;
@@ -207,15 +210,16 @@ function searchPlace(place){
 
         _allQuery.then(function(querySnapshot){
             querySnapshot.forEach(function(doc){
-                console.log(doc.id, "=>", doc.data());
-                setDiv(doc.data());
+                if (typeof querySnapshot !== "undefined") {
+                    console.log(doc.id, "=>", doc.data());
+                    setDiv(doc.data());
+                }
             });
         })
             .catch(function(error) {
                 console.log("Error setting Divs: " , error);
             });
 
-        setELProfiles();
     }
     request.send();
 
@@ -265,6 +269,9 @@ function setDiv(daten){
             daten.name  + " " +
             daten.adresse + " " +
             parseInt(distance) + " km entfernt";
+        child.addEventListener('click', function() {
+            _app._router.navigate("/profile/B5XVhr9QWJa5T2NvSsAyg46awAg1");
+        });
     }
 }
 
