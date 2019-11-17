@@ -264,10 +264,13 @@ function setDiv(id, daten){
         let parent = document.getElementById("liste");
         child.className = "profil";
         parent.appendChild(child);
-        console.log
-        child.innerHTML = " " +
-            daten.name  + "\n" +
-            daten.adresse + " \n " +
+        let adresse = daten.name + "<br />";
+        if (typeof(daten.postcodeTown) != "undefined") {
+          adresse += daten.postcodeTown + "<br />";
+        }
+        adresse += parseInt(distance) + " km entfernt"
+        
+        child.innerHTML = adresse;
             parseInt(distance) + " km entfernt";
         child.addEventListener('click', function() {
             _app._router.navigate("/profile/" + id);
