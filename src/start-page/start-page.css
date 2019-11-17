@@ -29,7 +29,11 @@
     background: grey;
     margin: 1em;
     padding: 0.5em;
+}
 
+.start-page .profil:hover{
+    background: #00b297;
+    cursor: pointer;
 }
 
 .start-page .suche{

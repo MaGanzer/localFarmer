@@ -88,11 +88,11 @@ function initMap(){
 
     _allQuery.then(function(querySnapshot){
         querySnapshot.forEach(function(doc) {
-            if (typeof querySnapshot !== "undefined"){
+            //if (typeof querySnapshot !== "undefined"){
                 console.log(doc.id, "=>", doc.data());
                 addMarker( doc.data().lon, doc.data().lat);
                 setDiv(doc.id, doc.data());
-            }
+            //}
 
         })
         .catch(function(error) {
@@ -210,10 +210,10 @@ function searchPlace(place){
 
         _allQuery.then(function(querySnapshot){
             querySnapshot.forEach(function(doc){
-                if (typeof querySnapshot !== "undefined") {
+                //if (typeof querySnapshot !== "undefined") {
                     console.log(doc.id, "=>", doc.data());
                     setDiv(doc.data());
-                }
+               // }
             });
         })
             .catch(function(error) {
