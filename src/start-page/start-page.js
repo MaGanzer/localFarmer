@@ -176,7 +176,7 @@ function search(){
     if (place != "" && product != ""){
         document.getElementById("search_product").style.borderColor = "red";
         document.getElementById("search_place").style.borderColor = "red";
-       alert("Sie können nur nach Orten oder Produkten getrennt suchen, \nbitte verwenden Sie zuerst die Orst- und dann die Produktsuche");
+       alert("Sie können nur nach Orten oder Produkten getrennt suchen, \nbitte verwenden Sie zuerst die Orts- und dann die Produktsuche.");
     }else if(place != ""){
         console.log("search place")
         searchPlace(place);
@@ -247,7 +247,7 @@ function searchProduct(product){
         });
 
     if(check == false){
-        alert("kein Suchergebnis gefunden, bitte starten sie die Suche erneut");
+        alert("Kein Suchergebnis gefunden, bitte starten sie die Suche erneut.");
     }
 }
 
