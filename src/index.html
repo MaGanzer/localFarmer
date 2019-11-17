@@ -59,28 +59,42 @@
   <section id="profile-page" class="hidden">
     <main>
       <article>
-        <h1 class="heading">Profil bearbeiten</h1>
-        <div>
-          Name: <span id="name"></span>
-        </div>
-        <div>
-          Adresse: <span id="address"></span>
-        </div>
-        <div>
-          Telefon: <span id="phone"></span>
-        </div>
-        <div>
-          Öffnungszeiten: <span id="openHours"></span>
-        </div>
-        <div>
-          Angebotene Produkte:
-          <table id="produce-table">
-            <tr>
-              <th>Produktname</th>
-              <th>Preis pro 100 Gramm</th>
-            </tr>
-          </table>
-        </div>
+        <h1 class="heading">Profil</h1>
+        <ul>
+          <li>
+            <span id="profile-name"></span>
+          </li>
+            &nbsp;
+          <li>
+          </li>
+          <li>
+            <span id="profile-street-number"></span>
+          </li>
+          <li>
+            <span id="profile-postcode-town"></span>
+          </li>
+          <li id="profile-phone-li">
+            Telefon: <span id="profile-phone"></span>
+          </li>
+          <li id="profile-open-hours-li">
+            Öffnungszeiten:
+          </li>
+          <li>
+            <span id="profile-open-hours"></span>
+          </li>
+          <li>
+            &nbsp;
+          </li>
+          <li>
+            <table id="profile-products-table" class="hidden">
+              <tr>
+                <th>Produktname</th>
+                <th>Preis</th>
+              </tr>
+            </table>
+            <span id="profile-no-products" class="hidden">Dieser Landwirt bietet derzeit keine Produkte an.</span>
+          </li>
+        </ul>
       </article>
     </main>
   </section>
@@ -93,23 +107,32 @@
         <form id="edit-form">
           <ul id="edit-ul">
             <li>
-              <input id="edit-name" placeholder="Name" required="" /> *
+              Stammdaten:
             </li>
             <li>
-              <input id="edit-street-number" placeholder="Straße und Hausnummer" required="" /> *
+              <input type="text" id="edit-name" placeholder="Name" required="" /> *
             </li>
             <li>
-              <input id="edit-postcode-town" placeholder="PLZ und Ort" required="" /> *
+              <input type="text" id="edit-street-number" placeholder="Straße und Hausnummer" required="" /> *
             </li>
             <li>
-              <input id="edit-phone" placeholder="Telefonnummer" />
+              <input type="text" id="edit-postcode-town" placeholder="PLZ und Ort" required="" /> *
             </li>
             <li>
-              <input id="edit-open-hours" placeholder="Öffnungszeiten" />
+              <input type="text" id="edit-phone" placeholder="Telefonnummer" />
+            </li>
+            <li>
+              <input type="text" id="edit-open-hours" placeholder="Öffnungszeiten" />
+            </li>
+            <li>
+              &nbsp;
+            </li>
+            <li>
+              Angebotene Produkte:
             </li>
             <li class="edit-product">
-              <input class="edit-product-name" placeholder="Bezeichnung" />
-              <input class="edit-product-price" placeholder="Preis" size="3" />
+              <input type="text" class="edit-product-name" placeholder="Bezeichnung" />
+              <input type="number" class="edit-product-price" placeholder="Preis" min="0" step="any" />
               € /
               <select class="edit-product-unit">
                 <option selected="selected">kg</option>

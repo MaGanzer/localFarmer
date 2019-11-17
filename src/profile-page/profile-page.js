@@ -6,7 +6,7 @@ let _app;
 let _db;
 let _uid;
 let _profile;
-let _produceTable;
+let _productsTable;
 let _currencyFormat = Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });
 
 class ProfilePage {
@@ -38,15 +38,15 @@ class ProfilePage {
     let section = document.querySelector("#profile-page").cloneNode(true);
 
     return {
-        className: "profile-page",
-        topbar: section.querySelectorAll("header > *"),
-        main: section.querySelectorAll("main > *"),
+      className: "profile-page",
+      topbar: section.querySelectorAll("header > *"),
+      main: section.querySelectorAll("main > *"),
     };
   }
 
   onLoad() {
-    _produceTable = document.querySelector("#produce-table");
-    _produceTable.querySelectorAll("#produce-table > .produce-row").forEach(element => {
+    _productsTable = document.querySelector("#profile-products-table");
+    _productsTable.querySelectorAll("#profile-products-table > .profile-products-row").forEach(element => {
       element.parentNode.removeChild(element);
     });
     this._domLoaded = true;
@@ -54,9 +54,6 @@ class ProfilePage {
       // profile data has already been loaded; update the page output
       this.updatePageOutput();
     }
-    document.querySelector('#BackToStart').addEventListener('click', function() {
-      _app._router.navigate("/");
-    });
     
     console.log('Page loaded');
   }
@@ -74,31 +71,52 @@ class ProfilePage {
       return;
     }
     this._profileUpdated = true;
-    let nameSpan = document.querySelector('#name');
-    let addressSpan = document.querySelector('#address');
-    let phoneSpan = document.querySelector('#phone');
-    let openHoursSpan = document.querySelector('#openHours');
+    let nameSpan = document.querySelector('#profile-name');
+    let streetNumberSpan = document.querySelector('#profile-street-number');
+    let postcodeTownSpan = document.querySelector('#profile-postcode-town');
+    let phoneLi = document.querySelector('#profile-phone-li');
+    let phoneSpan = document.querySelector('#profile-phone');
+    let openHoursLi = document.querySelector('#profile-open-hours-li');
+    let openHoursSpan = document.querySelector('#profile-open-hours');
+    let noProductsSpan = document.querySelector('#profile-no-products');
     
     if (typeof _profile.name !== 'undefined' && _profile.name != "") {
       document.title = `${_app._title} - Profil von ${_profile.name}`;
     }
     nameSpan.textContent = _profile.name;
-    addressSpan.textContent = _profile.address;
-    phoneSpan.textContent = _profile.phone;
+    streetNumberSpan.textContent = _profile.streetNumber;
+    postcodeTownSpan.textContent = _profile.postcodeTown;
+    if (_profile.phone == null || _profile.phone == "") {
+      phoneLi.classList.add("hidden");
+    } else {
+      phoneSpan.textContent = _profile.phone;
+    }
+    if (_profile.openHours == null || _profile.openHours == "") {
+      openHoursLi.classList.add("hidden");
+    } else {
+      openHoursSpan.textContent = _profile.openHours;
+    }
     openHoursSpan.textContent = _profile.openHours;
-    if (typeof(_profile.produce) != "undefined") {
-      _profile.produce.forEach(prod => {
+    if (typeof(_profile.products) != "undefined" && _profile.products.length > 0) {
+      console.log("products");
+      _profile.products.forEach(prod => {
         let row = document.createElement("tr");
-        row.classList.add("produce-row");
+        row.classList.add("profile-products-row");
         let namecol = document.createElement("td");
         let pricecol = document.createElement("td");
         namecol.textContent = prod.name;
-        pricecol.textContent = _currencyFormat.format(prod.price / 100);
+        pricecol.textContent = _currencyFormat.format(prod.price / 100) + " / " + prod.unit;
         row.appendChild(namecol);
         row.appendChild(pricecol);
-        _produceTable.appendChild(row);
+        _productsTable.appendChild(row);
         console.log(prod);
       });
+      _productsTable.classList.remove("hidden");
+      noProductsSpan.classList.add("hidden");
+    } else {
+      console.log("no products", _profile.products.length);
+      _productsTable.classList.add("hidden");
+      noProductsSpan.classList.remove("hidden");
     }
     console.log("profile page output updated");
   }

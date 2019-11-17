@@ -57,6 +57,16 @@ class EditPage {
     firstMinus.addEventListener('click', () => {
       this.removeProductRow(firstProduct);
     });
+    
+    // load user data
+    this._app._db.authChangeListener(user => {
+      if (!user) {
+        this._app._router.navigate("/");
+      }
+      this.loadUserData();
+    });
+    
+    this.loadUserData();
 
     console.log('Page loaded');
   }
@@ -67,6 +77,52 @@ class EditPage {
 
   get title() {
     return "Profil";
+  }
+  
+  loadUserData() {
+    if (this._app._loggedInUser) {
+      this._app._db.getProfile(this._app._loggedInUser.uid).then(docRef => {
+        let profile = docRef.data();
+        this._name.value = profile.name;
+        this._streetNumber.value = profile.streetNumber;
+        this._postcodeTown.value = profile.postcodeTown;
+        this._phone.value = profile.phone;
+        this._openHours.value = profile.openHours;
+        this.removeAllProducts();
+        profile.products.forEach(product => {
+          let row = this.addProductRow();
+          let prodName = row.querySelector(".edit-product-name");
+          let prodPrice = row.querySelector(".edit-product-price");
+          let prodUnit = row.querySelector(".edit-product-unit");
+          prodName.value = product.name;
+          prodPrice.value = product.price;
+          prodUnit.value = product.unit;
+        });
+        this.removeEmptyProducts();
+      });
+    }
+  }
+  
+  removeAllProducts() {
+    let productElements = document.querySelector("#edit-ul").querySelectorAll(".edit-product");
+    if (productElements != null) {
+      productElements.forEach(element => {
+        element.remove();
+      });
+    }
+  }
+  
+  removeEmptyProducts() {
+    let productElements = document.querySelector("#edit-ul").querySelectorAll(".edit-product");
+    if (productElements != null && productElements.length > 1) {
+      productElements.forEach(element => {
+        let prodName = element.querySelector(".edit-product-name").value.trim();
+        let prodPrice = element.querySelector(".edit-product-price").value.trim();
+        if ((prodName == null || prodName == "") && (prodPrice == null || prodPrice == "")) {
+          element.remove();
+        }
+      });
+    }
   }
   
   processInput() {
@@ -131,15 +187,18 @@ class EditPage {
     newLi.classList.add("edit-product");
     
     let nameInput = document.createElement("input");
+    nameInput.type="text";
     nameInput.classList.add("edit-product-name");
     nameInput.placeholder = "Bezeichnung";
     
     let spaceNode1 = document.createTextNode(" ");
     
     let priceInput = document.createElement("input");
+    priceInput.type="number";
     priceInput.placeholder = "Preis";
     priceInput.classList.add("edit-product-price");
-    priceInput.size = 3;
+    priceInput.min = 0;
+    priceInput.step = "0.01";
     
     let unitNode = document.createTextNode(" € / ");
     
@@ -179,6 +238,8 @@ class EditPage {
     });
     
     this.updateMinuses();
+    
+    return newLi;
   }
   
   removeProductRow(row) {

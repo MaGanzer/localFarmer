@@ -1,8 +1,17 @@
-.profile-page #produce-table {
+.profile-page ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+.profile-page #profile-name {
+  font-weight: bold;
+}
+
+.profile-page #profile-products-table {
   border-collapse: collapse;
 }
 
-.profile-page #produce-table th,td {
+.profile-page #profile-products-table th,td {
   border-style: solid;
   border-width: 1px;
 }

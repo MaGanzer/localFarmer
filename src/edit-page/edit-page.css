@@ -2,3 +2,20 @@
   padding-left: 0;
   list-style: none;
 }
+
+.edit-page #edit-form .edit-product-price {
+  width: 3em;
+}
+
+.edit-page #edit-form .edit-product-price {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.edit-page #edit-form .edit-product-price::-webkit-inner-spin-button, 
+.edit-page #edit-form .edit-product-price::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
