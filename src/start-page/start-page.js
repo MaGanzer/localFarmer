@@ -36,9 +36,9 @@ class StartPage {
     document.querySelector('#search').addEventListener('click', search);
     document.getElementById("search_product").addEventListener("keyup", (e) => enter(e));
     document.getElementById("search_place").addEventListener("keyup", (e) => enter(e));
-    document.querySelector('.profil').addEventListener('click', function() {
-      _app._router.navigate("/profile/B5XVhr9QWJa5T2NvSsAyg46awAg1");
-    });
+    //document.querySelector('.profil').addEventListener('click', function() {
+    //  _app._router.navigate("/profile/B5XVhr9QWJa5T2NvSsAyg46awAg1");
+    //});
     console.log('Page loaded');
   }
 
@@ -77,7 +77,7 @@ function initMap(){
         units: 'meters'
     });
 
-    _allQuery = _db.getAllDB(); //lokale Kopie der DB
+    _allQuery = _db.getAllProfiles(); //lokale Kopie der DB
     console.log(_allQuery);
 
     //Marker
@@ -90,24 +90,14 @@ function initMap(){
         querySnapshot.forEach(function(doc) {
             console.log(doc.id, "=>", doc.data());
             addMarker( doc.data().lon, doc.data().lat);
-            setDiv(doc.data())
+            setDiv(doc.data());
         })
         .catch(function(error) {
             console.log("Error getting documents: ", error);
         })
     });
 
-    /*_allQuery
-        querySnapshot.forEach(function(doc){
-            console.log(doc.id, "=>", doc.data());
-            addMarker(_layer_markers, doc.data().lon, doc.data().lat);
-            setDiv(doc.data());
-
-        })
-        .catch(function(error) {
-            console.log("Error setting div: " , error);
-        });*/
-
+    setELProfiles();
     jumpTo(zoom);
 }
 
@@ -116,6 +106,17 @@ function jumpTo(zoom) {
     let y = Lat2Merc(_lat);
     _map.setCenter(new OpenLayers.LonLat(x, y), zoom);
     return false;
+}
+
+function setELProfiles(){
+
+    let profilesArray = document.querySelectorAll(".profil");
+
+    profilesArray.forEach(function(element){
+        element.addEventListener('click', function() {
+            _app._router.navigate("/profile/B5XVhr9QWJa5T2NvSsAyg46awAg1");
+        });
+    });
 }
 
 function Lon2Merc(lon) {
@@ -213,6 +214,8 @@ function searchPlace(place){
             .catch(function(error) {
                 console.log("Error setting Divs: " , error);
             });
+
+        setELProfiles();
     }
     request.send();
 
