@@ -4,7 +4,7 @@
  * Anwendung überschrieben werden.
  */
 #app {
-    background-color: var(--header-normal-background-color); /* blau*/
+    /*background-color: var(--header-normal-background-color);*/ /* blau*/
     /*flex: 1;*/
     /* background-image: url("resources/images/background.jpg"); /*Weinberg als Hintergrundbild*/
 }
@@ -13,58 +13,68 @@
  * Kopfbereich über dem Inhalt
  */
 #app header {
-    background-color: var(--header-normal-background-color);
-    color: var(--header-normal-font-color);    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-right: 0;
-    margin-left: 0;
+  width: 100%;
+  background-color: var(--header-normal-background-color);
+  color: var(--header-normal-font-color);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 0;
+  margin-left: 0;
+  padding: 0;
+  position: sticky;
+  top: 0;
 }
 
 #app header a,
 #app header a:visited {
-    color: var(--header-normal-font-color);
-    text-decoration: none;
+  color: var(--header-normal-font-color);
+  text-decoration: none;
 }
 
 #app header a:hover {
-    color: var(--header-active-font-color);
-    text-decoration: underline;
+  color: var(--header-active-font-color);
+  text-decoration: underline;
 }
 
 #app header input {
-    background: none;
-    color: var(--header-normal-font-color);
-    border: 0;
+  background: none;
+  color: var(--header-normal-font-color);
+  border: 0;
 }
 
 #app header .rechts{
-    float: left;
-    margin: 0.5em;
+  float: left;
+  margin: 0.5em;
 }
 
 #app header li{
-    list-style: none;
+  list-style: none;
 }
 
 #app header ul{
-    padding-left: 0em;
+  padding-left: 0em;
 }
 
 /*
  * Hauptinhalt
  */
 #app main {
-  
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 1em;
+  background-color: var(--main-background-color);
 }
 
 /*
  * Footer
  */
 #app footer {
-    bottom: 0;
-    width: 100%;
-    background-color: lightgray;
-    height: 2em;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  background-color: var(--footer-background-color);
+  height: 2em;
 }
